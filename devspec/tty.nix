@@ -15,7 +15,6 @@
       }
     ];
     extraConfig = ''
-      vt=1
       font-size=18
     '';
     # autologinUser = "nixos";
