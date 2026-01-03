@@ -64,7 +64,7 @@ in {
         }
       ];
       extraConfig = ''
-        font-size=18
+        font-size=${toString config.kmscon.font-size}
       '';
     };
 
