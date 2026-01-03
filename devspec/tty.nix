@@ -1,58 +1,99 @@
 # TTY specific configs
 {
   config,
+  lib,
   pkgs,
   ...
 }: let
-  greeting = ''
-    === Hello to NixOS ===
-         ====    ====
-  '';
+  inherit
+    (lib)
+    mkOption
+    types
+    ;
 in {
-  console = {
-    font = "Lat2-Terminus16";
-    keyMap = "us";
-  };
+  options = {
+    tuigreet.greeting = mkOption {
+      type = types.lines;
+      default = ''
+        v<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        v                                                                          ^
+        v                           ####       ######    ###                       ^
+        v                          #####       #####   ####                        ^
+        v                           #####       ##### ####                         ^
+        v                            #####       ########                          ^
+        v                     ##################  ######     ##                    ^
+        v                    ####################  ####     ####                   ^
+        v   _    _      _ _         ### _           ###_   _ _      ____   _____   ^
+        v  | |  | |    | | |########## | |           #| \ | (_) ###/ __ \ / ____|  ^
+        v  | |__| | ___| | |#___  #### | |_ ___       |  \| |_  __| |  | | (___    ^
+        v  |  __  |/ _ \ | |/ _ \ ###  | __/ _ \      | . ` | |/ _` |  | |\___ \   ^
+        v  | |  | |  __/ | | (_) | #   | || (_) |     | |\  | | (#| |__| |____) |  ^
+        v  |_|  |_|\___|_|_|\___/ #     \__\___/     #|_| \_|_|\__,_|\__/|_____/   ^
+        v                       ##                  ##                             ^
+        v                    ####                  ####                            ^
+        v                    ####     ##  #####################                    ^
+        v                     ####   ####  ###################                     ^
+        v                           #######       #####                            ^
+        v                          ##### #####     #####                           ^
+        v                         #####   #####     #####                          ^
+        v                         ####     ####      ####                          ^
+        v                                                                          ^
+        >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>^
 
-  services.kmscon = {
-    enable = true;
-    hwRender = true;
-    fonts = [
-      {
-        name = "JetBrainsMono Nerd Font Mono";
-        package = pkgs.nerd-fonts.jetbrains-mono;
-      }
-    ];
-    extraConfig = ''
-      vt=1
-      font-size=18
-    '';
+      '';
+      description = "Greeting message for tuigreet";
+    };
+    kmscon.font-size = mkOption {
+      type = types.int;
+      default = 12;
+    };
   };
+  config = {
+    console = {
+      font = "Lat2-Terminus16";
+      keyMap = "us";
+    };
 
-  # For wheel users only currently,
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = let
-          configDir = pkgs.writeTextFile {
-            name = "kmscon-config";
-            destination = "/kmscon.conf";
-            text = config.services.kmscon.extraConfig;
-          };
-        in ''
-          ${pkgs.tuigreet}/bin/tuigreet \
-          --greeting '${greeting}' \
-          --time \
-          --remember \
-          --asterisks \
-          --cmd '${pkgs.bash}/bin/sh -c " \
-          sudo ${pkgs.kmscon}/bin/kmscon --vt=1 --seats=seat0 --no-reset-env --no-switchvt \
-          --configdir ${configDir} \
-          --login -- ${pkgs.shadow}/bin/login -p -f $(whoami) \
-          "'
-        '';
-        user = "greeter";
+    services.kmscon = {
+      enable = true;
+      hwRender = true;
+      fonts = [
+        {
+          name = "JetBrainsMono Nerd Font Mono";
+          package = pkgs.nerd-fonts.jetbrains-mono;
+        }
+      ];
+      extraConfig = ''
+        font-size=18
+      '';
+    };
+
+    # For wheel users only currently.
+    # Enable this with `services.greetd.enable`
+    services.greetd = {
+      settings = {
+        default_session = {
+          command = let
+            configDir = pkgs.writeTextFile {
+              name = "kmscon-config";
+              destination = "/kmscon.conf";
+              text = config.services.kmscon.extraConfig;
+            };
+          in ''
+            ${pkgs.tuigreet}/bin/tuigreet \
+            --greeting '${config.tuigreet.greeting}' \
+            --time \
+            --remember \
+            --asterisks \
+            --theme 'border=magenta;text=cyan;prompt=green;time=red;action=blue;button=yellow;container=black;input=red' \
+            --cmd '${pkgs.bash}/bin/sh -c " \
+            sudo ${pkgs.kmscon}/bin/kmscon --vt=1 --seats=seat0 --no-reset-env --no-switchvt \
+            --configdir ${configDir} \
+            --login -- ${pkgs.shadow}/bin/login -p -f $(whoami) \
+            "'
+          '';
+          user = "greeter";
+        };
       };
     };
   };
