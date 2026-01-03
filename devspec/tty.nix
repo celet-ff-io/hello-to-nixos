@@ -86,11 +86,11 @@ in {
             --remember \
             --asterisks \
             --theme 'border=magenta;text=cyan;prompt=green;time=red;action=blue;button=yellow;container=black;input=red' \
-            --cmd '${pkgs.bash}/bin/sh -c " \
-            sudo ${pkgs.kmscon}/bin/kmscon --vt=1 --seats=seat0 --no-reset-env --no-switchvt \
+            --cmd 'sudo \
+            ${pkgs.kmscon}/bin/kmscon --vt=1 --seats=seat0 --no-switchvt \
             --configdir ${configDir} \
             --login -- ${pkgs.shadow}/bin/login -p -f $(whoami) \
-            "'
+            '
           '';
           user = "greeter";
         };
