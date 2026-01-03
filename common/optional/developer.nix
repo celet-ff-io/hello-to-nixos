@@ -42,6 +42,7 @@
   environment.variables = {
     GO111MODULE = "on";
     GOPROXY = "https://goproxy.cn,direct";
+    UV_INDEX_URL = "https://pypi.tuna.tsinghua.edu.cn/simple";
   };
 
   environment.sessionVariables = {
