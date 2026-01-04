@@ -9,24 +9,34 @@
     (lib)
     mkDefault
     mkEnableOption
-    mkIf
-    mkMerge
     mkOption
     types
     ;
   nnnSrc = pkgs.nnn.src;
   nnnMisc = "${nnnSrc}/misc";
 
-  cfgTmux = config.tmux;
-  tmuxStatusBattery =
-    if cfgTmux.status.battery != ""
-    then "${cfgTmux.status.battery} #[bg=default,fg=default] |"
-    else cfgTmux.status.battery;
+  tmuxConnectivityStatusDir = pkgs.writeTextFile {
+    name = "tmux-connectivity-status";
+    text = ''
+      #!/bin/sh
+      # Use nmcli to check connectivity state
+      state=$(nmcli -t -f CONNECTIVITY general 2>/dev/null | tr -d '\n')
+      case "$state" in
+        full) printf "#[bg=green] 󰖈 #[default]" ;;
+        limited) printf "#[bg=yellow] !󰖈 #[default]" ;;
+        none|"") printf "#[bg=red] X󰖈 #[default]" ;;
+        *) printf "󰖈=$state" ;;
+      esac
+    '';
+    executable = true;
+    destination = "/bin/tmux-connectivity-status";
+  };
 in {
   options = {
     hasGui = mkEnableOption ''
       Set this to true if has GUI environment like Wayland.
     '';
+
     tmux = {
       autoStart = mkEnableOption "auto start";
 
@@ -61,7 +71,7 @@ in {
         bind -r K resize-pane -U 1
         bind -r L resize-pane -R 1
 
-        set -g status-right '${tmuxStatusBattery}  %H:%M %Y/%m/%d'
+        set -g status-right '#(${tmuxConnectivityStatusDir}/bin/tmux-connectivity-status)${config.tmux.status.battery} #[bg=default,fg=default]  %H:%M %Y/%m/%d'
 
         set -g @catppuccin_flavor 'mocha'
       '';
@@ -86,7 +96,23 @@ in {
       autosuggestions.enable = true;
       enableCompletion = true;
 
-      interactiveShellInit = ''
+      interactiveShellInit = let
+        tmuxOrNot = let
+          inSess = ''
+            fastfetch
+          '';
+        in
+          # Do not run `inSess` twice
+          if config.tmux.autoStart
+          then ''
+            if [ -n "${"$"}{TMUX:-}" ]; then
+              ${inSess}
+            else
+              to $ZSH_TMUX_DEFAULT_SESSION_NAME
+            fi
+          ''
+          else inSess;
+      in ''
         function zvm_config() {
           ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
         }
@@ -100,12 +126,11 @@ in {
         source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
         source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
 
+        # Alias
         alias to='tmux new-session -A -s'
         alias rebuild='sudo nixos-rebuild switch'
 
-        if [[ $- == *i* ]]; then
-          fastfetch
-        fi
+        ${tmuxOrNot}
       '';
     };
 
@@ -152,26 +177,21 @@ in {
         else []
       );
 
-    environment.sessionVariables = mkMerge [
-      {
-        SHELL = "zsh";
+    environment.sessionVariables = {
+      SHELL = "zsh";
 
-        PATH = [
-          "$HOME/.local/bin"
-        ];
-        EDITOR = "nvim";
-        VISUAL = "nvim";
+      PATH = [
+        "$HOME/.local/bin"
+      ];
+      EDITOR = "nvim";
+      VISUAL = "nvim";
 
-        NNN_PLUG = "e:suedit;p:preview-tui";
-        NNN_PLUGINS = "{nnnSrc}/plugins";
+      NNN_PLUG = "e:suedit;p:preview-tui";
+      NNN_PLUGINS = "{nnnSrc}/plugins";
 
-        ZSH_TMUX_AUTOREFRESH = "true";
-        ZSH_TMUX_DEFAULT_SESSION_NAME = "main";
-      }
-      (mkIf cfgTmux.autoStart {
-        ZSH_TMUX_AUTOSTART = "true";
-        ZSH_TMUX_AUTOQUIT = "false";
-      })
-    ];
+      ZSH_TMUX_AUTOREFRESH = "true";
+      ZSH_TMUX_AUTOQUIT = "false";
+      ZSH_TMUX_DEFAULT_SESSION_NAME = "main";
+    };
   };
 }

@@ -40,10 +40,13 @@
 
   networking.hostName = "nixoshost"; # Define your hostname.
 
+  tmux.autoStart = true; # Auto start tmux
   # tuigreet.greeting = "> Hello to NixOS <"; # Customize with your own ASCII art!
   # terminal.font-size = 13;
-  # programs.foot.enable = true; # Enable foot to run shell in Cage in Wayland
-  # tmux.autoStart = true; # Better not enable this cuz `tmux` works wired; better to use `ts` or `to` manually
+
+  # Enable foot to run shell in Cage in Wayland
+  # instead of kmscon
+  # programs.foot.enable = true;
 
   # Disk parts
 
