@@ -48,6 +48,9 @@ in {
         main = {
           font = "JetBrainsMono Nerd Font Mono:size=${toString config.terminal.font-size}";
         };
+        colors = {
+          background = "000000";
+        };
       };
     };
   };
