@@ -21,6 +21,9 @@
   ];
 
   environment.sessionVariables = {
-    BROWSER = "w3m";
+    BROWSER =
+      if config.hasGui
+      then "firefox"
+      else "w3m";
   };
 }
