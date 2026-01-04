@@ -51,8 +51,11 @@ in {
         default_session = {
           command = let
             tuigreetCmd =
+              # kitty
+              if config.terminal.kitty.enable
+              then "${pkgs.cage}/bin/cage -- ${pkgs.kitty}/bin/kitty"
               # foot
-              if config.programs.foot.enable
+              else if config.programs.foot.enable
               then "${pkgs.cage}/bin/cage -- ${pkgs.foot}/bin/foot"
               # kmscon
               else let

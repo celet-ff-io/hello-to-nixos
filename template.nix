@@ -44,9 +44,10 @@
   # tuigreet.greeting = "> Hello to NixOS <"; # Customize with your own ASCII art!
   # terminal.font-size = 13;
 
-  # Enable foot to run shell in Cage in Wayland
+  # Enable foot or kitty to run shell in Cage in Wayland
   # instead of kmscon
   # programs.foot.enable = true;
+  # terminal.kitty.enable = true;
 
   # Disk parts
 

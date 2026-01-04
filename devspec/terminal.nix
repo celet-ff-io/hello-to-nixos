@@ -8,16 +8,20 @@
   inherit
     (lib)
     mkDefault
+    mkEnableOption
     mkIf
     mkOption
     types
     ;
 in {
   options = {
-    terminal.font-size = mkOption {
-      type = types.int;
-      default = 13;
+    terminal = {
+      font-size = mkOption {
+        type = types.int;
+      };
+      kitty.enable = mkEnableOption "Use Kitty for background image";
     };
+    default = 13;
   };
   config = {
     console = {
@@ -40,7 +44,8 @@ in {
 
     # hardware graphics and nerd-fonts jetbrains-mono have been enabled by kmscon
 
-    hasGui = mkIf config.programs.foot.enable (mkDefault true);
+    hasGui = mkIf (with config; programs.foot.enable || terminal.kitty.enable) (mkDefault true);
+
     # Enable foot by `programs.foot.enable`
     programs.foot = {
       enableZshIntegration = config.programs.zsh.enable;
