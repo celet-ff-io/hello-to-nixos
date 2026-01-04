@@ -3,28 +3,49 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 {...}: {
   imports = [
-    ./devspec/commonhw.nix
+    ./devspec/commonhw.nix # systemd boot
     ./devspec/hw/usb.nix
     ./devspec/hw/wireless-adapter.nix
+    # ./devspec/hw/thunderbot.nix
+    # ./devspec/hw/i2c.nix
+    # ./devspec/hw/cpu/intel.nix # Enable kvm-intel
+    # ./devspec/hw/cpu/amd.nix # Enable kvm-amd
+    # ./devspec/hw/gpu/intel # Enable i915
+    # ./devspec/hw/gpu/amd # Enable amdgpu
+    # ./devspec/hw/gpu/nvidia/disable.nix # Disable NVIDIA
+    # (import ./devspec/luks.nix {
+    #   deviceLuksProvides = "luksDevice0";
+    #   deviceLuksOn = "/dev/disk/by-uuid/<uuid>";
+    # })
 
-    (import ./common/os-builder.nix "x86_64-linux")
-    ./devspec/locale.nix
+    (import ./common/os-builder.nix "x86_64-linux") # Experimental features and mirrors
+    ./devspec/locale.nix # Timezone and language
     ./devspec/printer.nix
-    ./devspec/sound.nix
+    ./devspec/sound.nix # pipeware
+    # ./devspec/fprint.nix # fprintd
+    # ./devspec/battery.nix # power save
+
+    ./devspec/greet.nix # greetd login
+    ./devspec/terminal.nix # kmscon and more
+    # ./devspec/desk/ # Currently useless
 
     (import ./common/users.nix "nixos")
-    ./common/basic-software.nix
+    ./common/basic-software.nix # nvim, zsh, tmux, git and more
     ./common/optional/ssh.nix
-
-    ./devspec/gui/desk.nix
-    ./devspec/gui/software.nix
+    # ./common/optional/developer.nix # cargo and more
+    # ./common/optional/browsers.nix # w3m and more
+    # ./common/optional/documents.nix # chafa and more
+    # ./common/optional/proxy.nix # mihomo and more
   ];
 
   networking.hostName = "nixoshost"; # Define your hostname.
 
-  tmux.autoStart = true;
+  # tuigreet.greeting = "> Hello to NixOS <"; # Customize with your own ASCII art!
+  # terminal.font-size = 13;
+  # programs.foot.enable = true; # Enable foot to run shell in Cage in Wayland
+  # tmux.autoStart = true; # Better not enable this cuz `tmux` works wired; better to use `ts` or `to` manually
 
-  # Main part
+  # Disk parts
 
   fileSystems."/" = {
     # device = "/dev/disk/by-uuid/<uuid>";

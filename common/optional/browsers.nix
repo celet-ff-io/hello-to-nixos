@@ -1,5 +1,9 @@
 # Browsers
-{pkgs, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   programs.zsh = {
     ohMyZsh = {
       plugins = [
@@ -7,6 +11,8 @@
       ];
     };
   };
+
+  programs.firefox.enable = config.hasGui;
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).

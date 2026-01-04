@@ -1,4 +1,4 @@
-# TTY specific configs
+# Greeter settings
 {
   config,
   lib,
@@ -43,42 +43,30 @@ in {
       '';
       description = "Greeting message for tuigreet";
     };
-    kmscon.font-size = mkOption {
-      type = types.int;
-      default = 12;
-    };
   };
   config = {
-    console = {
-      font = "Lat2-Terminus16";
-      keyMap = "us";
-    };
-
-    services.kmscon = {
-      enable = true;
-      hwRender = true;
-      fonts = [
-        {
-          name = "JetBrainsMono Nerd Font Mono";
-          package = pkgs.nerd-fonts.jetbrains-mono;
-        }
-      ];
-      extraConfig = ''
-        font-size=${toString config.kmscon.font-size}
-      '';
-    };
-
-    # For wheel users only currently.
-    # Enable this with `services.greetd.enable`
     services.greetd = {
+      enable = true;
       settings = {
         default_session = {
           command = let
-            configDir = pkgs.writeTextFile {
-              name = "kmscon-config";
-              destination = "/kmscon.conf";
-              text = config.services.kmscon.extraConfig;
-            };
+            tuigreetCmd =
+              # foot
+              if config.programs.foot.enable
+              then "${pkgs.cage}/bin/cage -- ${pkgs.foot}/bin/foot"
+              # kmscon
+              else let
+                configDir = pkgs.writeTextFile {
+                  name = "kmscon-config";
+                  destination = "/kmscon.conf";
+                  text = config.services.kmscon.extraConfig;
+                };
+              in ''
+                sudo \
+                ${pkgs.kmscon}/bin/kmscon --vt=1 --seats=seat0 --no-switchvt \
+                --configdir ${configDir} \
+                --login -- ${pkgs.shadow}/bin/login -p -f $(whoami) \
+              '';
           in ''
             ${pkgs.tuigreet}/bin/tuigreet \
             --greeting '${config.tuigreet.greeting}' \
@@ -86,11 +74,7 @@ in {
             --remember \
             --asterisks \
             --theme 'border=magenta;text=cyan;prompt=green;time=red;action=blue;button=yellow;container=black;input=red' \
-            --cmd 'sudo \
-            ${pkgs.kmscon}/bin/kmscon --vt=1 --seats=seat0 --no-switchvt \
-            --configdir ${configDir} \
-            --login -- ${pkgs.shadow}/bin/login -p -f $(whoami) \
-            '
+            --cmd '${tuigreetCmd}'
           '';
           user = "greeter";
         };

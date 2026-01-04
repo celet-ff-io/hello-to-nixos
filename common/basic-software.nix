@@ -16,6 +16,9 @@ with lib; let
     else cfgTmux.status.battery;
 in {
   options = {
+    hasGui = mkEnableOption ''
+      Set this to true if has GUI environment like Wayland.
+    '';
     tmux = {
       autoStart = mkEnableOption "auto start";
 
