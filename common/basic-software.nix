@@ -4,8 +4,16 @@
   lib,
   pkgs,
   ...
-}:
-with lib; let
+}: let
+  inherit
+    (lib)
+    mkDefault
+    mkEnableOption
+    mkIf
+    mkMerge
+    mkOption
+    types
+    ;
   nnnSrc = pkgs.nnn.src;
   nnnMisc = "${nnnSrc}/misc";
 
@@ -29,6 +37,7 @@ in {
       };
     };
   };
+
   config = {
     programs.git = {
       enable = true;
@@ -106,33 +115,42 @@ in {
 
     programs.gnupg.agent = {
       enable = true;
-      pinentryPackage = lib.mkDefault pkgs.pinentry-curses;
+      pinentryPackage = mkDefault pkgs.pinentry-curses;
     };
 
     # List packages installed in system profile.
     # You can use https://search.nixos.org/ to find more packages (and options).
-    environment.systemPackages = with pkgs; [
-      fastfetch
-      htop
-      duf
+    environment.systemPackages = with pkgs;
+      [
+        fastfetch
+        htop
+        duf
 
-      wget
-      curl
-      zip
-      unzip
+        wget
+        curl
+        zip
+        unzip
 
-      trash-cli
-      ripgrep
-      fd
-      fzf
-      jq
-      bat
+        trash-cli
+        ripgrep
+        fd
+        fzf
+        jq
+        bat
 
-      (nnn.override {
-        withNerdIcons = true;
-      })
-      neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    ];
+        (nnn.override {
+          withNerdIcons = true;
+        })
+        neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+      ]
+      ++ (
+        if config.hasGui
+        then [
+          zed-editor
+          localsend
+        ]
+        else []
+      );
 
     environment.sessionVariables = mkMerge [
       {
