@@ -22,10 +22,10 @@
       # Use nmcli to check connectivity state
       state=$(nmcli -t -f CONNECTIVITY general 2>/dev/null | tr -d '\n')
       case "$state" in
-        full) printf "#[bg=green] 󰖈 #[default]" ;;
-        limited) printf "#[bg=yellow] !󰖈 #[default]" ;;
-        none|"") printf "#[bg=red] X󰖈 #[default]" ;;
-        *) printf "󰖈=$state" ;;
+        full) printf "#[bg=green] 󰖟 #[default]" ;;
+        limited) printf "#[bg=yellow] !󰖟 #[default]" ;;
+        none|"") printf "#[bg=red] X󰖟 #[default]" ;;
+        *) printf "󰖟=$state" ;;
       esac
     '';
     executable = true;
