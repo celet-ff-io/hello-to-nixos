@@ -1,7 +1,12 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-{...}: {
+{
+  # config,
+  # lib,
+  # pkgs,
+  ...
+}: {
   imports = [
     ./devspec/commonhw.nix # systemd boot
     ./devspec/hw/usb.nix
@@ -42,7 +47,10 @@
 
   networking.hostName = "nixoshost"; # Define your hostname.
 
-  tmux.autoStart = true; # Auto start tmux
+  shell = {
+    autoStartTmux = true; # Auto start tmux
+    # onLogin = "${pkgs.coreutils}/bin/timeout 5s ${pkgs.cmatrix}/bin/cmatrix"; # Run once per login
+  };
   # tuigreet.greeting = "> Hello to NixOS <"; # Customize with your own ASCII art!
   # terminal.font-size = 13;
 

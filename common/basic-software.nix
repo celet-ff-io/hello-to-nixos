@@ -38,12 +38,20 @@ in {
     '';
 
     tmux = {
-      autoStart = mkEnableOption "auto start";
-
       status.battery = mkOption {
         type = types.str;
         default = "";
         description = "Battery status";
+      };
+    };
+
+    shell = {
+      autoStartTmux = mkEnableOption "Auto start tmux";
+
+      onLogin = mkOption {
+        type = types.lines;
+        default = "";
+        description = "Run once per login";
       };
     };
   };
@@ -70,8 +78,8 @@ in {
         bind -r J resize-pane -D 1
         bind -r K resize-pane -U 1
         bind -r L resize-pane -R 1
-
         set -g status-right '#(${tmuxConnectivityStatusDir}/bin/tmux-connectivity-status)${config.tmux.status.battery} #[bg=default,fg=default]  %H:%M %Y/%m/%d'
+
 
         set -g @catppuccin_flavor 'mocha'
       '';
@@ -102,16 +110,23 @@ in {
             fastfetch
           '';
         in
-          # Do not run `inSess` twice
-          if config.tmux.autoStart
-          then ''
-            if [ -n "${"$"}{TMUX:-}" ]; then
+          with config.shell;
+            if autoStartTmux
+            then ''
+              # Do not run `inSess` twice
+              if [ -n "${"$"}{TMUX:-}" ]; then
+                ${inSess}
+              else
+                ${onLogin}
+                to $ZSH_TMUX_DEFAULT_SESSION_NAME
+              fi
+            ''
+            else ''
+              if [ -z "${"$"}{TMUX:-}" ]; then
+                ${onLogin}
+              fi
               ${inSess}
-            else
-              to $ZSH_TMUX_DEFAULT_SESSION_NAME
-            fi
-          ''
-          else inSess;
+            '';
       in ''
         function zvm_config() {
           ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
