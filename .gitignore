@@ -1,2 +1,6 @@
+# User-specific direcory
+/userspec/**
+!/userspec/example.nix
+
 # Current config
 configuration.nix

@@ -36,6 +36,8 @@
     # ./common/optional/browsers.nix # w3m and more
     # ./common/optional/documents.nix # chafa and more
     # ./common/optional/proxy.nix # mihomo and more
+
+    # ./userspec/example.nix  # your config in extra files
   ];
 
   networking.hostName = "nixoshost"; # Define your hostname.
