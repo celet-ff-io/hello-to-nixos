@@ -47,6 +47,9 @@
 
   networking.hostName = "nixoshost"; # Define your hostname.
 
+  # =============
+  # Options
+
   shell = {
     autoStartTmux = true; # Auto start tmux
     # onLogin = "${pkgs.coreutils}/bin/timeout 5s ${pkgs.cmatrix}/bin/cmatrix"; # Run once per login
@@ -58,6 +61,8 @@
   # instead of kmscon
   # programs.foot.enable = true;
   # terminal.kitty.enable = true;
+
+  # =============
 
   # Disk parts
 
