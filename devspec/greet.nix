@@ -39,7 +39,6 @@ in {
         v                         ####     ####      ####                          ^
         v                                                                          ^
         >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>^
-
       '';
       description = "Greeting message for tuigreet";
     };
@@ -65,10 +64,16 @@ in {
                   text = config.services.kmscon.extraConfig;
                 };
               in ''
-                sudo \
-                ${pkgs.kmscon}/bin/kmscon --vt=1 --seats=seat0 --no-switchvt \
-                --configdir ${configDir} \
-                --login -- ${pkgs.shadow}/bin/login -p -f $(whoami) \
+                sh -c "
+                if id -nG | grep -qw \"wheel\"; then
+                  sudo \
+                  ${pkgs.kmscon}/bin/kmscon --vt=1 --seats=seat0 --no-switchvt \
+                  --configdir ${configDir} \
+                  --login -- ${pkgs.shadow}/bin/login -p -f $(whoami)
+                else
+                  $SHELL
+                fi
+                "
               '';
           in ''
             ${pkgs.tuigreet}/bin/tuigreet \
