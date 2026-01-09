@@ -193,8 +193,6 @@ in {
       );
 
     environment.sessionVariables = {
-      SHELL = "zsh";
-
       PATH = [
         "$HOME/.local/bin"
       ];
