@@ -52,6 +52,7 @@
 
   shell = {
     autoStartTmux = true; # Auto start tmux
+    # Before enable the following 'onLogin', do not forget to uncomment 'pkgs' in the function arguments!
     # onLogin = "${pkgs.coreutils}/bin/timeout 5s ${pkgs.cmatrix}/bin/cmatrix"; # Run once per login
   };
   # tuigreet.greeting = "> Hello to NixOS <"; # Customize with your own ASCII art!
@@ -69,26 +70,25 @@
   fileSystems."/" = {
     # device = "/dev/disk/by-uuid/<uuid>";
     fsType = "btrfs";
-    options = ["subvol=root"];
+    options = [ "subvol=root" ];
   };
 
   fileSystems."/home" = {
     # device = "/dev/disk/by-uuid/<uuid>";
     fsType = "btrfs";
-    options = ["subvol=home"];
+    options = [ "subvol=home" ];
   };
 
   fileSystems."/nix" = {
     # device = "/dev/disk/by-uuid/<uuid>";
     fsType = "btrfs";
-    options = ["subvol=nix"];
+    options = [ "subvol=nix" ];
   };
 
-  # EFI
   fileSystems."/boot" = {
     # device = "/dev/disk/by-uuid/<uuid>";
     fsType = "vfat";
-    options = ["fmask=0022" "dmask=0022"];
+    options = [ "fmask=0022" "dmask=0022" ];
   };
 
   # Swap
