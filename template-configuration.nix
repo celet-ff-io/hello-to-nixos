@@ -9,9 +9,8 @@
 }: {
   imports = [
     ./devspec/commonhw.nix # systemd boot
-    ./devspec/hw/usb.nix
     ./devspec/hw/wireless-adapter.nix
-    # ./devspec/hw/thunderbot.nix
+    # ./devspec/hw/thunderbolt.nix
     # ./devspec/hw/i2c.nix
     # ./devspec/hw/cpu/intel.nix # Enable kvm-intel
     # ./devspec/hw/cpu/amd.nix # Enable kvm-amd

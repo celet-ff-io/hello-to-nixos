@@ -49,7 +49,7 @@ With [Wayland](https://wayland.freedesktop.org/) [Cage](https://www.hjdskes.nl/p
 
 1. Clone this repository as `/etc/nixos`
 
-2. Clone `template.nix` to `configuration.nix` and **modify it** according to where your NixOS runs currently
+2. Clone `template-configuration.nix` to `configuration.nix` and **modify it** according to where your NixOS runs currently
 
 3. Rebuild
 
@@ -90,7 +90,7 @@ You configure it mainly in the `/etc/nixos` directory just like what you do ordi
 
 ### Extra configuration with nix
 
-See # Options in [template](template.nix) for those I declared in file `option`.
+See # Options in [template](template-configuration.nix) for those I declared in file `option`.
 
 ### Configuration not with nix
 
