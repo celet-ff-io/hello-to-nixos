@@ -69,25 +69,40 @@
   fileSystems."/" = {
     # device = "/dev/disk/by-uuid/<uuid>";
     fsType = "btrfs";
-    options = [ "subvol=root" ];
-  };
-
-  fileSystems."/home" = {
-    # device = "/dev/disk/by-uuid/<uuid>";
-    fsType = "btrfs";
-    options = [ "subvol=home" ];
+    options = [
+      "compress=zstd"
+      "noatime"
+      "subvol=@"
+    ];
   };
 
   fileSystems."/nix" = {
     # device = "/dev/disk/by-uuid/<uuid>";
     fsType = "btrfs";
-    options = [ "subvol=nix" ];
+    options = [
+      "compress=zstd"
+      "noatime"
+      "subvol=@nix"
+    ];
+  };
+
+  fileSystems."/home" = {
+    # device = "/dev/disk/by-uuid/<uuid>";
+    fsType = "btrfs";
+    options = [
+      "compress=zstd"
+      "noatime"
+      "subvol=@home"
+    ];
   };
 
   fileSystems."/boot" = {
     # device = "/dev/disk/by-uuid/<uuid>";
     fsType = "vfat";
-    options = [ "fmask=0022" "dmask=0022" ];
+    options = [
+      "fmask=0022"
+      "dmask=0022"
+    ];
   };
 
   # Swap
