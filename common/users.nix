@@ -6,6 +6,7 @@ userName: {pkgs, ...}: {
     extraGroups = [
       "wheel"
       "tss"
+      "networkmanager"
       "git"
     ];
     shell = pkgs.zsh;
