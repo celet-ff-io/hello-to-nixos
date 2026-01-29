@@ -1,25 +1,11 @@
 # Terminal settings
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
-  inherit
-    (lib)
-    mkDefault
-    mkEnableOption
-    mkIf
-    mkOption
-    types
-    ;
+{ config, lib, pkgs, ... }:
+let inherit (lib) mkDefault mkEnableOption mkIf mkOption types;
 in {
   options = {
     terminal = {
-      font-size = mkOption {
-        type = types.int;
-      };
-      kitty.enable = mkEnableOption "Use Kitty for background image";
+      font-size = mkOption { type = types.int; };
+      kitty.enable = mkEnableOption "Use Kitty";
     };
     default = 13;
   };
@@ -31,12 +17,10 @@ in {
     services.kmscon = {
       enable = true;
       hwRender = true;
-      fonts = [
-        {
-          name = "JetBrainsMono Nerd Font Mono";
-          package = pkgs.nerd-fonts.jetbrains-mono;
-        }
-      ];
+      fonts = [{
+        name = "JetBrainsMono Nerd Font Mono";
+        package = pkgs.nerd-fonts.jetbrains-mono;
+      }];
       extraConfig = ''
         font-size=${toString config.terminal.font-size}
       '';
@@ -44,19 +28,23 @@ in {
 
     # hardware graphics and nerd-fonts jetbrains-mono have been enabled by kmscon
 
-    hasGui = mkIf (with config; programs.foot.enable || terminal.kitty.enable) (mkDefault true);
+    hasGui = mkIf (with config; programs.foot.enable || terminal.kitty.enable)
+      (mkDefault true);
 
     # Enable foot by `programs.foot.enable`
     programs.foot = {
       enableZshIntegration = config.programs.zsh.enable;
       settings = {
         main = {
-          font = "JetBrainsMono Nerd Font Mono:size=${toString config.terminal.font-size}";
+          font = "JetBrainsMono Nerd Font Mono:size=${
+              toString config.terminal.font-size
+            }";
         };
-        colors = {
-          background = "000000";
-        };
+        colors = { background = "000000"; };
       };
     };
+
+    environment.systemPackages = with pkgs;
+      mkIf config.terminal.kitty.enable [ kitty ];
   };
 }

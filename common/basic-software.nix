@@ -1,17 +1,7 @@
 # Basic softwares
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
-  inherit
-    (lib)
-    mkDefault
-    mkEnableOption
-    mkOption
-    types
-    ;
+{ config, lib, pkgs, ... }:
+let
+  inherit (lib) mkDefault mkEnableOption mkOption types;
   nnnSrc = pkgs.nnn.src;
   nnnMisc = "${nnnSrc}/misc";
 
@@ -57,17 +47,12 @@ in {
   };
 
   config = {
-    programs.git = {
-      enable = true;
-    };
+    programs.git = { enable = true; };
 
     programs.tmux = {
       enable = true;
       keyMode = "vi";
-      plugins = with pkgs.tmuxPlugins; [
-        catppuccin
-        yank
-      ];
+      plugins = with pkgs.tmuxPlugins; [ catppuccin yank ];
       extraConfig = ''
         bind h select-pane -L
         bind j select-pane -D
@@ -90,14 +75,7 @@ in {
 
       ohMyZsh = {
         enable = true;
-        plugins = [
-          "git"
-          "z"
-          "tmux"
-          "extract"
-          "web-search"
-          "sudo"
-        ];
+        plugins = [ "git" "z" "tmux" "extract" "web-search" "sudo" ];
       };
 
       syntaxHighlighting.enable = true;
@@ -109,24 +87,21 @@ in {
           inSess = ''
             fastfetch
           '';
-        in
-          with config.shell;
-            if autoStartTmux
-            then ''
-              # Do not run `inSess` twice
-              if [ -n "${"$"}{TMUX:-}" ]; then
-                ${inSess}
-              else
-                ${onLogin}
-                to $ZSH_TMUX_DEFAULT_SESSION_NAME
-              fi
-            ''
-            else ''
-              if [ -z "${"$"}{TMUX:-}" ]; then
-                ${onLogin}
-              fi
-              ${inSess}
-            '';
+        in with config.shell;
+        if autoStartTmux then ''
+          # Do not run `inSess` twice
+          if [ -n "${"$"}{TMUX:-}" ]; then
+            ${inSess}
+          else
+            ${onLogin}
+            to $ZSH_TMUX_DEFAULT_SESSION_NAME
+          fi
+        '' else ''
+          if [ -z "${"$"}{TMUX:-}" ]; then
+            ${onLogin}
+          fi
+          ${inSess}
+        '';
       in ''
         function zvm_config() {
           ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
@@ -170,6 +145,8 @@ in {
         curl
         zip
         unzip
+        gnupg
+        git-crypt
 
         trash-cli
         ripgrep
@@ -178,24 +155,12 @@ in {
         jq
         bat
 
-        (nnn.override {
-          withNerdIcons = true;
-        })
+        (nnn.override { withNerdIcons = true; })
         neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-      ]
-      ++ (
-        if config.hasGui
-        then [
-          zed-editor
-          localsend
-        ]
-        else []
-      );
+      ] ++ (if config.hasGui then [ zed-editor ] else [ ]);
 
     environment.sessionVariables = {
-      PATH = [
-        "$HOME/.local/bin"
-      ];
+      PATH = [ "$HOME/.local/bin" ];
       EDITOR = "nvim";
       VISUAL = "nvim";
 

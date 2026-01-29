@@ -2,11 +2,10 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 {
-  # config,
-  # lib,
-  # pkgs,
-  ...
-}: {
+# config,
+# lib,
+# pkgs,
+... }: {
   imports = [
     ./devspec/commonhw.nix # systemd boot
     ./devspec/hw/wireless-adapter.nix
@@ -22,7 +21,8 @@
     #   deviceLuksOn = "/dev/disk/by-uuid/<uuid>";
     # })
 
-    (import ./common/os-builder.nix "x86_64-linux") # Experimental features and mirrors
+    (import ./common/os-builder.nix
+      "x86_64-linux") # Experimental features and mirrors
     ./devspec/locale.nix # Timezone and language
     ./devspec/printer.nix
     ./devspec/sound.nix # pipeware
@@ -40,6 +40,7 @@
     # ./common/optional/browsers.nix # w3m and more
     # ./common/optional/documents.nix # chafa and more
     # ./common/optional/proxy.nix # mihomo and more
+    # ./common/optional/localsend.nix # LocalSend
 
     # ./userspec/example.nix  # your config in extra files
   ];
@@ -69,44 +70,29 @@
   fileSystems."/" = {
     # device = "/dev/disk/by-uuid/<uuid>";
     fsType = "btrfs";
-    options = [
-      "compress=zstd"
-      "noatime"
-      "subvol=@"
-    ];
+    options = [ "compress=zstd" "noatime" "subvol=@" ];
   };
 
   fileSystems."/nix" = {
     # device = "/dev/disk/by-uuid/<uuid>";
     fsType = "btrfs";
-    options = [
-      "compress=zstd"
-      "noatime"
-      "subvol=@nix"
-    ];
+    options = [ "compress=zstd" "noatime" "subvol=@nix" ];
   };
 
   fileSystems."/home" = {
     # device = "/dev/disk/by-uuid/<uuid>";
     fsType = "btrfs";
-    options = [
-      "compress=zstd"
-      "noatime"
-      "subvol=@home"
-    ];
+    options = [ "compress=zstd" "noatime" "subvol=@home" ];
   };
 
   fileSystems."/boot" = {
     # device = "/dev/disk/by-uuid/<uuid>";
     fsType = "vfat";
-    options = [
-      "fmask=0022"
-      "dmask=0022"
-    ];
+    options = [ "fmask=0022" "dmask=0022" ];
   };
 
   # Swap
-  swapDevices = [];
+  swapDevices = [ ];
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
