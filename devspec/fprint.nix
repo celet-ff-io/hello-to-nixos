@@ -1,7 +1,9 @@
 # Finger print
 {...}: {
-  services.fprintd = {
-    enable = true;
-    tod.enable = true;
+  services.fprintd.enable = true;
+
+  security.pam.services = {
+    login.fprintAuth = true;
+    sudo.fprintAuth = true;
   };
 }
