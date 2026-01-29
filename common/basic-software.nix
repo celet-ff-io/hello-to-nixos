@@ -51,8 +51,9 @@ in {
 
     programs.tmux = {
       enable = true;
+      terminal = "tmux-256color";
       keyMode = "vi";
-      plugins = with pkgs.tmuxPlugins; [ catppuccin yank ];
+      plugins = with pkgs.tmuxPlugins; [ catppuccin yank resurrect ];
       extraConfig = ''
         bind h select-pane -L
         bind j select-pane -D
@@ -67,6 +68,9 @@ in {
 
 
         set -g @catppuccin_flavor 'mocha'
+
+        set -g @continuum-restore 'on'
+        set -g @continuum-save-interval '15'
       '';
     };
 

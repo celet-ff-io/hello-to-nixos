@@ -1,18 +1,15 @@
 # User config
-userName: {pkgs, ...}: {
+userName:
+{ pkgs, ... }: {
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${userName} = {
     isNormalUser = true;
-    extraGroups = [
-      "wheel"
-      "tss"
-      "networkmanager"
-      "git"
-    ];
+    linger = true;
+    extraGroups = [ "wheel" "tss" "networkmanager" "git" ];
     shell = pkgs.zsh;
   };
 
-  users.groups.git = {};
+  users.groups.git = { };
 
   security.sudo.wheelNeedsPassword = false;
 
