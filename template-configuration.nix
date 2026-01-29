@@ -26,6 +26,7 @@
     ./devspec/locale.nix # Timezone and language
     ./devspec/printer.nix
     ./devspec/sound.nix # pipeware
+    ./devspec/bluetooth.nix # pipeware
     # ./devspec/fprint.nix # fprintd
     # ./devspec/battery.nix # power save
 
