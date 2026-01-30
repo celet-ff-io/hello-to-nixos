@@ -1,7 +1,10 @@
 # Common hardware configs
 { lib, pkgs, modulesPath, ... }: {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_6_18;
+  networking.nftables.enable = true;
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.configurationLimit = 7;
