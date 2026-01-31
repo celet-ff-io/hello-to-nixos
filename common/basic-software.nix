@@ -47,8 +47,6 @@ in {
   };
 
   config = {
-    programs.git = { enable = true; };
-
     programs.tmux = {
       enable = true;
       terminal = "tmux-256color";
@@ -151,6 +149,7 @@ in {
         unzip
         gnupg
         git-crypt
+        appimage-run
 
         trash-cli
         ripgrep
