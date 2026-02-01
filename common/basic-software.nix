@@ -109,6 +109,14 @@ in {
           ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
         }
 
+        function y() {
+          local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+          command yazi "$@" --cwd-file="$tmp"
+          IFS= read -r -d "" cwd < "$tmp"
+          [ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+          rm -f -- "$tmp"
+        }
+
         _QUITCD="${nnnMisc}/quitcd/quitcd.bash_sh_zsh"
         if [ -f "$_QUITCD" ]; then
           source "$_QUITCD"
@@ -159,6 +167,7 @@ in {
         bat
 
         (nnn.override { withNerdIcons = true; })
+        yazi
         neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
       ] ++ (if config.hasGui then [ zed-editor ] else [ ]);
 
@@ -169,6 +178,7 @@ in {
 
       NNN_PLUG = "e:suedit;p:preview-tui";
       NNN_PLUGINS = "{nnnSrc}/plugins";
+      NNN_OPTS = "e";
 
       ZSH_TMUX_AUTOREFRESH = "true";
       ZSH_TMUX_AUTOQUIT = "false";

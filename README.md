@@ -12,7 +12,7 @@ See [docs](docs/docs.md) for details.
 * [KMSCON](https://github.com/kmscon/kmscon) instead of default terminal, to display the [nerd font](https://www.nerdfonts.com/) JetBrainsMono Nerd Font
 * [Zsh](https://www.zsh.org/) as shell
 * [tmux](https://tmux.info/)
-* [nnn (n³)](https://github.com/jarun/nnn) as file manager
+* [nnn (n³)](https://github.com/jarun/nnn) and [Yazi](https://yazi-rs.github.io/) as file manager
 * [neovim](https://neovim.io/) as editor
 * [w3m](https://w3m.sourceforge.net/) as TUI browser
 * and more...
@@ -33,7 +33,7 @@ With [Wayland](https://wayland.freedesktop.org/) [Cage](https://www.hjdskes.nl/p
 
 * Zsh plugin [ZSH-VI-MODE](https://github.com/jeffreytse/zsh-vi-mode) with `jk` as escape key for insert mode
 
-* Zsh with [quitcd](https://github.com/jarun/nnn/blob/master/misc/quitcd/quitcd.bash_sh_zsh) of nnn (use with `n` in shell)
+* Zsh with [quitcd](https://github.com/jarun/nnn/blob/master/misc/quitcd/quitcd.bash_sh_zsh) of nnn (use with `n` in shell) and `y` for yazi
 
 * Alias `to` for `tmux new-session -A -s`
 
