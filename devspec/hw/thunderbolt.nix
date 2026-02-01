@@ -1,10 +1,5 @@
 # USB
-{...}: {
-  boot.initrd.availableKernelModules = [
-    "thunderbolt"
-  ];
-  boot.kernelParams = [
-    "iommu=pt"
-  ];
+{ ... }: {
+  boot.initrd.availableKernelModules = [ "thunderbolt" ];
   services.hardware.bolt.enable = true;
 }

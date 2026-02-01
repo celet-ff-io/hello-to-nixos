@@ -3,6 +3,7 @@
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_6_18;
+  boot.kernelParams = [ "iommu=pt" ];
   networking.nftables.enable = true;
 
   # Use the systemd-boot EFI boot loader.
