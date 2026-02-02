@@ -24,6 +24,7 @@
     (import ./common/os-builder.nix
       "x86_64-linux") # Experimental features and mirrors
     ./devspec/locale.nix # Timezone and language
+    ./devspec/watchdog.nix # Watchdog
     ./devspec/printer.nix
     ./devspec/sound.nix # pipeware
     # ./devspec/fprint.nix # fprintd
