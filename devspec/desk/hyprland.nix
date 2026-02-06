@@ -3,7 +3,7 @@
   hasGui = lib.mkDefault true;
   hasDesktop = lib.mkDefault true;
 
-  xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-hyprland ];
+  xdg.portal.config.hyprland = { default = [ "hyprland" "gtk" ]; };
 
   programs.hyprland.enable = true;
   programs.hyprlock.enable = true;
