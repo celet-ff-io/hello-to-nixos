@@ -150,6 +150,7 @@ in {
         fastfetch
         htop
         duf
+        psmisc
 
         wget
         curl
