@@ -32,15 +32,17 @@
 
     ./devspec/greet.nix # greetd login
     ./devspec/terminal.nix # kmscon and more
-    # ./devspec/desk/ # Currently useless
+    # ./devspec/desk/common.nix # Desktop common
+    # ./devspec/desk/hyprland.nix # Hyprland
+    # ./devspec/virtualisation.nix # Virtualisation (QEMU)
 
     (import ./common/users.nix "nixos")
     ./common/basic-software.nix # nvim, zsh, tmux, git and more
     ./common/optional/ssh.nix
     # ./common/optional/developer.nix # cargo and more
-    # ./common/optional/browsers.nix # w3m and more
+    # ./common/optional/browsers.nix # browser applications
     # ./common/optional/documents.nix # chafa and more
-    # ./common/optional/proxy.nix # mihomo and more
+    # ./common/optional/proxy.nix # proxy applications 
     # ./common/optional/localsend.nix # LocalSend
 
     # ./userspec/example.nix  # your config in extra files

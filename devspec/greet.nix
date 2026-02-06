@@ -1,15 +1,6 @@
 # Greeter settings
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
-  inherit
-    (lib)
-    mkOption
-    types
-    ;
+{ config, lib, pkgs, ... }:
+let inherit (lib) mkOption types;
 in {
   options = {
     tuigreet.greeting = mkOption {
@@ -49,15 +40,18 @@ in {
       settings = {
         default_session = {
           command = let
-            tuigreetCmd =
-              # kitty
-              if config.terminal.kitty.enable
-              then "${pkgs.cage}/bin/cage -- ${pkgs.kitty}/bin/kitty"
-              # foot
-              else if config.programs.foot.enable
-              then "${pkgs.cage}/bin/cage -- ${pkgs.foot}/bin/foot"
-              # kmscon
-              else let
+            tuigreetCmd = if config.programs.hyprland.enable then
+            # Hyprland
+              "start-hyprland"
+            else if config.terminal.kitty.enable then
+            # kitty
+              "${pkgs.cage}/bin/cage -- ${pkgs.kitty}/bin/kitty"
+            else if config.programs.foot.enable then
+            # foot
+              "${pkgs.cage}/bin/cage -- ${pkgs.foot}/bin/foot"
+            else
+            # kmscon
+              let
                 configDir = pkgs.writeTextFile {
                   name = "kmscon-config";
                   destination = "/kmscon.conf";

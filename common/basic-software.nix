@@ -26,6 +26,9 @@ in {
     hasGui = mkEnableOption ''
       Set this to true if has GUI environment like Wayland.
     '';
+    hasDesktop = mkEnableOption ''
+      Set this to true if has GUI desktop envronment with compositor.
+    '';
 
     tmux = {
       status.battery = mkOption {

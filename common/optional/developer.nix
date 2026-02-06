@@ -1,5 +1,5 @@
 # Developer extras
-{pkgs, ...}: {
+{ pkgs, ... }: {
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
@@ -16,10 +16,7 @@
     openjdk21
     gradle
 
-    (python313.withPackages (ps:
-      with ps; [
-        pip
-      ]))
+    (python313.withPackages (ps: with ps; [ pip ]))
     uv
 
     nodejs
@@ -33,8 +30,10 @@
 
     julia
 
+    frp
     sqlite
 
+    p7zip
     gh
     lazygit
   ];
@@ -53,12 +52,8 @@
     enable = true;
 
     config = {
-      init = {
-        defaultBranch = "main";
-      };
-      core = {
-        editor = "nvim";
-      };
+      init = { defaultBranch = "main"; };
+      core = { editor = "nvim"; };
     };
   };
 }

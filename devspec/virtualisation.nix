@@ -1,5 +1,5 @@
 # Virtualisation
-{ pkgs, ... }: {
+{ config, lib, pkgs, ... }: {
   boot.kernelModules = [ "vfio" "vfio_pci" "vfio_iommu_type1" ];
   environment.systemPackages = with pkgs; [ virtiofsd ];
   virtualisation.libvirtd = {
@@ -13,4 +13,5 @@
       '';
     };
   };
+  programs.virt-manager = lib.mkIf config.hasGui { enable = true; };
 }
