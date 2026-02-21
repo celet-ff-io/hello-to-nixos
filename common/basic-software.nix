@@ -133,6 +133,9 @@ in {
         alias to='tmux new-session -A -s'
         alias rebuild='sudo nixos-rebuild switch'
 
+        # Environment
+        export PATH="$PATH:$HOME/.local/bin"
+
         ${tmuxOrNot}
       '';
     };
@@ -176,7 +179,6 @@ in {
       ] ++ (if config.hasGui then [ zed-editor ] else [ ]);
 
     environment.sessionVariables = {
-      PATH = [ "$HOME/.local/bin" ];
       EDITOR = "nvim";
       VISUAL = "nvim";
 

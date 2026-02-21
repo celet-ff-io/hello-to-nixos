@@ -2,5 +2,8 @@
 /userspec/**
 !/userspec/example.nix
 
+# NixOS-WSL cloned
+/nixos-wsl
+
 # Current config
-configuration.nix
+/configuration.nix
