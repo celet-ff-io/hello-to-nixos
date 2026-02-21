@@ -4,10 +4,12 @@ let inherit (lib) mkDefault mkEnableOption mkIf mkMerge mkOption types;
 in {
   options = {
     terminal = {
-      font-size = mkOption { type = types.int; };
+      font-size = mkOption {
+        type = types.int;
+        default = 13;
+      };
       kitty.enable = mkEnableOption "Use Kitty";
     };
-    default = 13;
   };
 
   config = mkMerge [
