@@ -8,4 +8,6 @@ defaultUser:
     ssh-agent.enable = true;
     interop.register = true;
   };
+
+  tmux.status.network-connectivity.enable = false;
 }

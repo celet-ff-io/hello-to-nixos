@@ -31,6 +31,12 @@ in {
     '';
 
     tmux = {
+      status.network-connectivity.enable = mkOption {
+        type = types.bool;
+        default = true;
+        description =
+          "Set this to false to disable network connectivity check in tmux status bar";
+      };
       status.battery = mkOption {
         type = types.str;
         default = "";
@@ -55,7 +61,12 @@ in {
       terminal = "tmux-256color";
       keyMode = "vi";
       plugins = with pkgs.tmuxPlugins; [ catppuccin yank resurrect ];
-      extraConfig = ''
+      extraConfig = let
+        setConnectivity = if config.tmux.status.network-connectivity.enable then
+          "#(${tmuxConnectivityStatusDir}/bin/tmux-connectivity-status)"
+        else
+          "";
+      in ''
         bind h select-pane -L
         bind j select-pane -D
         bind k select-pane -U
@@ -65,8 +76,8 @@ in {
         bind -r J resize-pane -D 1
         bind -r K resize-pane -U 1
         bind -r L resize-pane -R 1
-        set -g status-right '#(${tmuxConnectivityStatusDir}/bin/tmux-connectivity-status)${config.tmux.status.battery} #[bg=default,fg=default]  %H:%M %Y/%m/%d'
 
+        set -g status-right '${setConnectivity}${config.tmux.status.battery} #[bg=default,fg=default]  %H:%M %Y/%m/%d'
 
         set -g @catppuccin_flavor 'mocha'
 
