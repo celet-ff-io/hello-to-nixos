@@ -1,7 +1,17 @@
 # Basic softwares
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
-  inherit (lib) mkDefault mkEnableOption mkOption types;
+  inherit (lib)
+    mkDefault
+    mkEnableOption
+    mkOption
+    types
+    ;
   nnnSrc = pkgs.nnn.src;
   nnnMisc = "${nnnSrc}/misc";
 
@@ -21,7 +31,8 @@ let
     executable = true;
     destination = "/bin/tmux-connectivity-status";
   };
-in {
+in
+{
   options = {
     hasGui = mkEnableOption ''
       Set this to true if has GUI environment like Wayland.
@@ -34,8 +45,7 @@ in {
       status.network-connectivity.enable = mkOption {
         type = types.bool;
         default = true;
-        description =
-          "Set this to false to disable network connectivity check in tmux status bar";
+        description = "Set this to false to disable network connectivity check in tmux status bar";
       };
       status.battery = mkOption {
         type = types.str;
@@ -60,30 +70,39 @@ in {
       enable = true;
       terminal = "tmux-256color";
       keyMode = "vi";
-      plugins = with pkgs.tmuxPlugins; [ catppuccin yank resurrect ];
-      extraConfig = let
-        setConnectivity = if config.tmux.status.network-connectivity.enable then
-          "#(${tmuxConnectivityStatusDir}/bin/tmux-connectivity-status)"
-        else
-          "";
-      in ''
-        bind h select-pane -L
-        bind j select-pane -D
-        bind k select-pane -U
-        bind l select-pane -R
+      plugins = with pkgs.tmuxPlugins; [
+        catppuccin
+        yank
+        resurrect
+      ];
+      extraConfig =
+        let
+          setConnectivity =
+            if config.tmux.status.network-connectivity.enable then
+              "#(${tmuxConnectivityStatusDir}/bin/tmux-connectivity-status)"
+            else
+              "";
+        in
+        ''
+          bind h select-pane -L
+          bind j select-pane -D
+          bind k select-pane -U
+          bind l select-pane -R
 
-        bind -r H resize-pane -L 1
-        bind -r J resize-pane -D 1
-        bind -r K resize-pane -U 1
-        bind -r L resize-pane -R 1
+          bind -r H resize-pane -L 1
+          bind -r J resize-pane -D 1
+          bind -r K resize-pane -U 1
+          bind -r L resize-pane -R 1
 
-        set -g status-right '${setConnectivity}${config.tmux.status.battery} #[bg=default,fg=default]  %H:%M %Y/%m/%d'
+          set -g status-right '${setConnectivity}${config.tmux.status.battery} #[bg=default,fg=default]  %H:%M %Y/%m/%d'
 
-        set -g @catppuccin_flavor 'mocha'
+          set -g @catppuccin_flavor 'mocha'
 
-        set -g @continuum-restore 'on'
-        set -g @continuum-save-interval '15'
-      '';
+          set -g @continuum-restore 'on'
+          set -g @continuum-save-interval '15'
+
+          set -s set-clipboard on
+        '';
     };
 
     programs.zsh = {
@@ -91,64 +110,78 @@ in {
 
       ohMyZsh = {
         enable = true;
-        plugins = [ "git" "z" "tmux" "extract" "web-search" "sudo" ];
+        plugins = [
+          "git"
+          "z"
+          "tmux"
+          "extract"
+          "web-search"
+          "sudo"
+        ];
       };
 
       syntaxHighlighting.enable = true;
       autosuggestions.enable = true;
       enableCompletion = true;
 
-      interactiveShellInit = let
-        tmuxOrNot = let
-          inSess = ''
-            fastfetch
-          '';
-        in with config.shell;
-        if autoStartTmux then ''
-          # Do not run `inSess` twice
-          if [ -n "${"$"}{TMUX:-}" ]; then
-            ${inSess}
-          else
-            ${onLogin}
-            to $ZSH_TMUX_DEFAULT_SESSION_NAME
+      interactiveShellInit =
+        let
+          tmuxOrNot =
+            let
+              inSess = ''
+                fastfetch
+              '';
+            in
+            with config.shell;
+            if autoStartTmux then
+              ''
+                # Do not run `inSess` twice
+                if [ -n "${"$"}{TMUX:-}" ]; then
+                  ${inSess}
+                else
+                  ${onLogin}
+                  to $ZSH_TMUX_DEFAULT_SESSION_NAME
+                fi
+              ''
+            else
+              ''
+                if [ -z "${"$"}{TMUX:-}" ]; then
+                  ${onLogin}
+                fi
+                ${inSess}
+              '';
+        in
+        ''
+          function zvm_config() {
+            ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+          }
+
+          function y() {
+            local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+            command yazi "$@" --cwd-file="$tmp"
+            IFS= read -r -d "" cwd < "$tmp"
+            [ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+            rm -f -- "$tmp"
+          }
+
+          _QUITCD="${nnnMisc}/quitcd/quitcd.bash_sh_zsh"
+          if [ -f "$_QUITCD" ]; then
+            source "$_QUITCD"
           fi
-        '' else ''
-          if [ -z "${"$"}{TMUX:-}" ]; then
-            ${onLogin}
-          fi
-          ${inSess}
+          unset _QUITCD
+
+          source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+          source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+
+          # Alias
+          alias to='tmux new-session -A -s'
+          alias rebuild='sudo nixos-rebuild switch'
+
+          # Environment
+          export PATH="$PATH:$HOME/.local/bin"
+
+          ${tmuxOrNot}
         '';
-      in ''
-        function zvm_config() {
-          ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
-        }
-
-        function y() {
-          local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-          command yazi "$@" --cwd-file="$tmp"
-          IFS= read -r -d "" cwd < "$tmp"
-          [ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
-          rm -f -- "$tmp"
-        }
-
-        _QUITCD="${nnnMisc}/quitcd/quitcd.bash_sh_zsh"
-        if [ -f "$_QUITCD" ]; then
-          source "$_QUITCD"
-        fi
-        unset _QUITCD
-
-        source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-        source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-
-        # Alias
-        alias to='tmux new-session -A -s'
-        alias rebuild='sudo nixos-rebuild switch'
-
-        # Environment
-        export PATH="$PATH:$HOME/.local/bin"
-
-        ${tmuxOrNot}
-      '';
     };
 
     # Some programs need SUID wrappers, can be configured further or are
@@ -162,7 +195,8 @@ in {
 
     # List packages installed in system profile.
     # You can use https://search.nixos.org/ to find more packages (and options).
-    environment.systemPackages = with pkgs;
+    environment.systemPackages =
+      with pkgs;
       [
         fastfetch
         htop
@@ -187,7 +221,8 @@ in {
         (nnn.override { withNerdIcons = true; })
         yazi
         neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-      ] ++ (if config.hasGui then [ zed-editor ] else [ ]);
+      ]
+      ++ (if config.hasGui then [ zed-editor ] else [ ]);
 
     environment.sessionVariables = {
       EDITOR = "nvim";
