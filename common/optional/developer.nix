@@ -56,4 +56,6 @@
       core = { editor = "nvim"; };
     };
   };
+
+  programs.nix-index.enable = true;
 }
