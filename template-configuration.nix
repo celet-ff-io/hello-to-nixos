@@ -40,8 +40,9 @@
     # Please manually git clone https://github.com/nix-community/NixOS-WSL
     # to ./nixos-wsl
     # or use <nixos-wsl/modules> instead if not using unstable channel
-    ./nixos-wsl/modules
-    (import ./devspec/wsl.nix "nixos")
+    #
+    # ./nixos-wsl/modules
+    # (import ./devspec/wsl.nix "nixos")
 
     (import ./common/users.nix "nixos")
     ./common/basic-software.nix # nvim, zsh, tmux, git and more
