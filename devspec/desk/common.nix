@@ -9,13 +9,11 @@
   security.polkit.enable = true;
 
   environment.systemPackages = with pkgs; [
-    rofi
-    wl-clipboard
-
     kdePackages.dolphin
     kdePackages.qt6ct
     libsForQt5.qt5ct
 
+    rofi
     waybar
     mako
     grim

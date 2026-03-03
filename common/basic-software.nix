@@ -222,7 +222,7 @@ in
         yazi
         neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
       ]
-      ++ (if config.hasGui then [ zed-editor ] else [ ]);
+      ++ (if config.hasGui then [ zed-editor wl-clipboard] else [ ]);
 
     environment.sessionVariables = {
       EDITOR = "nvim";
