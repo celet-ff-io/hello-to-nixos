@@ -1,5 +1,6 @@
 # Developer extras
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
@@ -9,7 +10,7 @@
     pkg-config
     gdb
 
-    cargo
+    rustup
 
     go
 
@@ -46,16 +47,23 @@
 
   environment.sessionVariables = {
     CARGO_TARGET_DIR = "$HOME/.cache/cargo-target";
+    RUST_SRC_PATH = "${pkgs.rustPlatform.rustLibSrc}";
   };
 
   programs.git = {
     enable = true;
 
     config = {
-      init = { defaultBranch = "main"; };
-      core = { editor = "nvim"; };
+      init = {
+        defaultBranch = "main";
+      };
+      core = {
+        editor = "nvim";
+      };
     };
   };
+
+  programs.direnv.enable = true;
 
   programs.nix-index.enable = true;
 }
