@@ -2,10 +2,12 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 {
-# config,
-# lib,
-# pkgs,
-... }: {
+  # config,
+  # lib,
+  # pkgs,
+  ...
+}:
+{
   imports = [
     ./devspec/commonhw.nix # systemd boot
     ./devspec/hw/wireless-adapter.nix
@@ -21,8 +23,7 @@
     #   deviceLuksOn = "/dev/disk/by-uuid/<uuid>";
     # })
 
-    (import ./common/os-builder.nix
-      "x86_64-linux") # Experimental features and mirrors
+    (import ./common/os-builder.nix "x86_64-linux") # Experimental features and mirrors
     ./devspec/locale.nix # Timezone and language
     ./devspec/watchdog.nix # Watchdog
     ./devspec/printer.nix
@@ -37,12 +38,10 @@
     # ./devspec/virtualisation.nix # Virtualisation (QEMU)
 
     # Enable only if you are using WSL
-    # Please manually git clone https://github.com/nix-community/NixOS-WSL
-    # to ./nixos-wsl
-    # or use <nixos-wsl/modules> instead if not using unstable channel
-    #
-    # ./nixos-wsl/modules
-    # (import ./devspec/wsl.nix "nixos")
+    # Please make sure your nixos-wsl in nix-channel is updated to lastest version
+    # or wsl.ssh-agent.enable may not exist and cause error
+    # <nixos-wsl/modules>
+    (import ./devspec/wsl.nix "nixos")
 
     (import ./common/users.nix "nixos")
     ./common/basic-software.nix # nvim, zsh, tmux, git and more
@@ -50,7 +49,7 @@
     # ./common/optional/developer.nix # cargo and more
     # ./common/optional/browsers.nix # browser applications
     # ./common/optional/documents.nix # chafa and more
-    # ./common/optional/proxy.nix # proxy applications 
+    # ./common/optional/proxy.nix # proxy applications
     # ./common/optional/localsend.nix # LocalSend
 
     # ./userspec/example.nix  # your config in extra files
@@ -81,25 +80,40 @@
   fileSystems."/" = {
     # device = "/dev/disk/by-uuid/<uuid>";
     fsType = "btrfs";
-    options = [ "compress=zstd" "noatime" "subvol=@" ];
+    options = [
+      "compress=zstd"
+      "noatime"
+      "subvol=@"
+    ];
   };
 
   fileSystems."/nix" = {
     # device = "/dev/disk/by-uuid/<uuid>";
     fsType = "btrfs";
-    options = [ "compress=zstd" "noatime" "subvol=@nix" ];
+    options = [
+      "compress=zstd"
+      "noatime"
+      "subvol=@nix"
+    ];
   };
 
   fileSystems."/home" = {
     # device = "/dev/disk/by-uuid/<uuid>";
     fsType = "btrfs";
-    options = [ "compress=zstd" "noatime" "subvol=@home" ];
+    options = [
+      "compress=zstd"
+      "noatime"
+      "subvol=@home"
+    ];
   };
 
   fileSystems."/boot" = {
     # device = "/dev/disk/by-uuid/<uuid>";
     fsType = "vfat";
-    options = [ "fmask=0022" "dmask=0022" ];
+    options = [
+      "fmask=0022"
+      "dmask=0022"
+    ];
   };
 
   # Swap
