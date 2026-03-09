@@ -1,5 +1,6 @@
 # SSH config
-{...}: {
+{ ... }:
+{
   # List services that you want to enable:
   services.openssh = {
     enable = true;
@@ -20,4 +21,6 @@
   programs.gnupg.agent = {
     enableSSHSupport = true;
   };
+
+  programs.mosh.enable = true;
 }
