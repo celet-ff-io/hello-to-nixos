@@ -1,7 +1,8 @@
 # WSL configurations
 # Do not enable this on any envrionment except WSL
 defaultUser:
-{ ... }: {
+{ ... }:
+{
   wsl = {
     enable = true;
     defaultUser = defaultUser;
@@ -10,4 +11,10 @@ defaultUser:
   };
 
   tmux.status.network-connectivity.enable = false;
+
+  programs.zsh = {
+    interactiveShellInit = ''
+      alias xdg-open='explorer.exe'
+    '';
+  };
 }
