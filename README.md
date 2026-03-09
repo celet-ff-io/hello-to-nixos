@@ -1,4 +1,4 @@
-# Gooddays' Hello to NixOS
+# Ariete's Hello to NixOS
 
 My NixOS configuration. A configuration without Home Manager or Flakes.
 
