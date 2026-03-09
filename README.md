@@ -55,46 +55,55 @@ of nnn (use with `n` in shell) and `y` for yazi
 
 ## Install
 
-1. Clone this repository as `/etc/nixos`
+1. Clone this repository and let shell variable `HTN` be its path.
 
-2. Clone `template-configuration.nix` to `configuration.nix`
-  and **modify it** according to where your NixOS runs currently
+2. Backup your current `/etc/nixos/configuration.nix`.
 
-3. Rebuild
+3. Clone `$HTN/template-configuration.nix` to `/etc/nixos/configuration.nix`,
+  change the `"/path/to/hello-to-nixos"` in your configuration copied from template
+  to the value of `"$HTN"` in shell,
+  and **modify your new configuration** according to your backup made in step 2.
 
-4. If you use NixOS on a **real hardware** instead of WSL,
+4. Rebuild and switch.
+
+5. If you use NixOS on a **real hardware** instead of WSL,
   then reboot to apply the changes on boot, terminal and more;  
-  If you use NixOS on WSL, then shutdown the instance and start it
+  If you use NixOS on WSL, then shutdown the instance and start it.
 
-5. Configure oh-my-zsh and p10k following their interactive configurations
+6. Configure oh-my-zsh and p10k following their interactive configurations.
 
 ### Example
 
-Install the hello-to-nixos configuration.
+Install the hello-to-nixos configuration:
 
 ```bash
-cd /etc
-sudo mv nixos nixos.bak
-sudo mkdir nixos
-sudo chown $(whoami):wheel nixos
-cd nixos
-git clone https://github.com/celet-ff-io/hello-to-nixos.git
-mv hello-to-nixos/{*,.*} .
-rmdir hello-to-nixos
-cp template-configuration.nix configuration.nix
+# Clone repository
+HTN='/path/to/hello-to-nixos'
+mkdir -p "$HTN"
+git clone https://github.com/celet-ff-io/hello-to-nixos.git "$HTN"
+
+# Install config
+sudo chown -R $(whoami):wheel /etc/nixos
+cd /etc/nixos
+cp ./configuration.nix ./configuration.nix.bak
+cp "$HTN/template-configuration.nix" ./configuration.nix
+# Replace the placeholder path '/path/to/hello-to-nixos' to "$HTN"
+sed -i "s#/path/to/hello-to-nixos#$HTN#" ./configuration.nix
 ```
 
-Then modify the `configuration.nix` according to where your NixOS runs currently.
+Then modify the `configuration.nix` according to your current NixOS configuration.
+
+Rebuild your system:
 
 ```bash
 # Check your nix channels
 sudo nix-channel --list
-# Add 
-sudo nixos-rebuild switch --option substituters https://mirrors.tuna.tsinghua.edu.cn/nix-channels/nixos-25.11
+# You may use channel of nixos stable instead
+sudo nixos-rebuild switch --option substituters https://mirrors.tuna.tsinghua.edu.cn/nix-channels/nixos-unstable
 # For NixOS-WSL, you may need to check your `nixos-wsl` channel
 
 # Rebuild and switch to new OS generation
-# Make sure you have configured configuration.nix
+# Make sure you have configured `configuration.nix`
 sudo nixos-rebuild switch --option substituters https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store
 sudo reboot # This will reboot your device!
 ```
@@ -111,8 +120,7 @@ just like what you do ordinarily in NixOS.
 
 ### Extra configuration with nix
 
-See # Options in [template](template-configuration.nix)
-for those I declared in file `option`.
+See *# Options* in [template](template-configuration.nix).
 
 ### Configuration not with nix
 

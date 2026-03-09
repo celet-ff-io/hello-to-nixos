@@ -9,6 +9,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add `./modules/common/optional/default.nix`
+to import all modules under `./modules/common/optional`.
+
+### Changed
+
+- **Usage of this OS configuration repository is changed**
+to importing modules of this repository in user's own `/etc/nixos`,
+wherever the repository is located,
+instead of make the repository itself as `/etc/nixos`
+and add custom user configuration in `/etc/nixos/userspec`.
+
+- The working modules under repository root,
+`./common` and `./devspec`, are moved to `./modules`.  
+e.g. `./common/basic-software.nix` to `./modules/common/basic-software.nix`.
+
+- Modify `README.md` for usage change.
+
+### Removed
+
+- Delete everything in `.gitignore`
+because all its current content are no longer useful.
+
+- Delete useless `./userspec`
+since we do not need git ignoring for custom configuration anymore.
+
 ## 1.1.1 - 2026-03-09
 
 ### Fixed
