@@ -41,7 +41,7 @@
     # Please make sure your nixos-wsl in nix-channel is updated to lastest version
     # or wsl.ssh-agent.enable may not exist and cause error
     # <nixos-wsl/modules>
-    (import ./devspec/wsl.nix "nixos")
+    # (import ./devspec/wsl.nix "nixos")
 
     (import ./common/users.nix "nixos")
     ./common/basic-software.nix # nvim, zsh, tmux, git and more
