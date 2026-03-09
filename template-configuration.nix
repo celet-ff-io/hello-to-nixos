@@ -7,52 +7,54 @@
   # pkgs,
   ...
 }:
+let
+  # Set it to where this repository you cloned is
+  hello-to-nixos = "/path/to/hello-to-nixos";
+in
 {
   imports = [
-    ./devspec/commonhw.nix # systemd boot
-    ./devspec/hw/wireless-adapter.nix
-    # ./devspec/hw/thunderbolt.nix
-    # ./devspec/hw/i2c.nix
-    # ./devspec/hw/cpu/intel.nix # Enable kvm-intel
-    # ./devspec/hw/cpu/amd.nix # Enable kvm-amd
-    # ./devspec/hw/gpu/intel # Enable i915
-    # ./devspec/hw/gpu/amd # Enable amdgpu
-    # ./devspec/hw/gpu/nvidia/disable.nix # Disable NVIDIA
-    # (import ./devspec/luks.nix {
+    (import "${hello-to-nixos}/modules/devspec/commonhw.nix") # systemd boot
+    (import "${hello-to-nixos}/modules/devspec/hw/wireless-adapter.nix")
+    # (import "${hello-to-nixos}/modules/devspec/hw/thunderbolt.nix")
+    # (import "${hello-to-nixos}/modules/devspec/hw/i2c.nix")
+    # (import "${hello-to-nixos}/modules/devspec/hw/cpu/intel.nix") # Enable kvm-intel
+    # (import "${hello-to-nixos}/modules/devspec/hw/cpu/amd.nix") # Enable kvm-amd
+    # (import "${hello-to-nixos}/modules/devspec/hw/gpu/intel") # Enable i915
+    # (import "${hello-to-nixos}/modules/devspec/hw/gpu/amd") # Enable amdgpu
+    # (import "${hello-to-nixos}/modules/devspec/hw/gpu/nvidia/disable.nix") # Disable NVIDIA
+    # (import "${hello-to-nixos}/modules/devspec/luks.nix" {
     #   deviceLuksProvides = "luksDevice0";
     #   deviceLuksOn = "/dev/disk/by-uuid/<uuid>";
     # })
 
-    (import ./common/os-builder.nix "x86_64-linux") # Experimental features and mirrors
-    ./devspec/locale.nix # Timezone and language
-    ./devspec/watchdog.nix # Watchdog
-    ./devspec/printer.nix
-    ./devspec/sound.nix # pipeware
-    # ./devspec/fprint.nix # fprintd
-    # ./devspec/battery.nix # power save
+    (import "${hello-to-nixos}/modules/common/os-builder.nix" "x86_64-linux") # Experimental features and mirrors
+    (import "${hello-to-nixos}/modules/devspec/locale.nix") # Timezone and language
+    (import "${hello-to-nixos}/modules/devspec/watchdog.nix") # Watchdog
+    (import "${hello-to-nixos}/modules/devspec/printer.nix")
+    (import "${hello-to-nixos}/modules/devspec/sound.nix") # pipeware
+    # (import "${hello-to-nixos}/modules/devspec/fprint.nix") # fprintd
+    # (import "${hello-to-nixos}/modules/devspec/battery.nix") # power save
 
-    ./devspec/greet.nix # greetd login
-    ./devspec/terminal.nix # kmscon and more
-    # ./devspec/desk/common.nix # Desktop common
-    # ./devspec/desk/hyprland.nix # Hyprland
-    # ./devspec/virtualisation.nix # Virtualisation (QEMU)
+    (import "${hello-to-nixos}/modules/devspec/greet.nix") # greetd login
+    (import "${hello-to-nixos}/modules/devspec/terminal.nix") # kmscon and more
+    # (import "${hello-to-nixos}/modules/devspec/desk/common.nix") # Desktop common
+    # (import "${hello-to-nixos}/modules/devspec/desk/hyprland.nix") # Hyprland
+    # (import "${hello-to-nixos}/modules/devspec/virtualisation.nix") # Virtualisation (QEMU)
 
     # Enable only if you are using WSL
     # Please make sure your nixos-wsl in nix-channel is updated to lastest version
     # or wsl.ssh-agent.enable may not exist and cause error
     # <nixos-wsl/modules>
-    # (import ./devspec/wsl.nix "nixos")
+    # (import "${hello-to-nixos}/modules/devspec/wsl.nix" "nixos")
 
-    (import ./common/users.nix "nixos")
-    ./common/basic-software.nix # nvim, zsh, tmux, git and more
-    ./common/optional/ssh.nix
-    # ./common/optional/developer.nix # cargo and more
-    # ./common/optional/browsers.nix # browser applications
-    # ./common/optional/documents.nix # chafa and more
-    # ./common/optional/proxy.nix # proxy applications
-    # ./common/optional/localsend.nix # LocalSend
-
-    # ./userspec/example.nix  # your config in extra files
+    (import "${hello-to-nixos}/modules/common/users.nix" "nixos")
+    (import "${hello-to-nixos}/modules/common/basic-software.nix") # nvim, zsh, tmux, git and more
+    (import "${hello-to-nixos}/modules/common/optional/ssh.nix")
+    # (import "${hello-to-nixos}/modules/common/optional/developer.nix") # cargo and more
+    # (import "${hello-to-nixos}/modules/common/optional/browsers.nix") # browser applications
+    # (import "${hello-to-nixos}/modules/common/optional/documents.nix") # chafa and more
+    # (import "${hello-to-nixos}/modules/common/optional/proxy.nix") # proxy applications
+    # (import "${hello-to-nixos}/modules/common/optional/localsend.nix") # LocalSend
   ];
 
   networking.hostName = "nixoshost"; # Define your hostname.
