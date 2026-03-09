@@ -41,7 +41,7 @@ With [Wayland](https://wayland.freedesktop.org/) [Cage](https://www.hjdskes.nl/p
 
 #### Other
 
-* Vim-mode zsh and tmux
+* Vi-mode zsh and tmux
 
 * Nix-channel substituters **forced** to mirrors in *China Mainland*.
 
@@ -60,6 +60,8 @@ If you use NixOS on WSL, then shutdown the instance and start it
 
 ### Example
 
+Install the hello-to-nixos configuration.
+
 ```bash
 cd /etc
 sudo mv nixos nixos.bak
@@ -69,37 +71,48 @@ cd nixos
 git clone https://github.com/celet-ff-io/hello-to-nixos.git
 mv hello-to-nixos/{*,.*} .
 rmdir hello-to-nixos
-cp template.conf configuration.conf
+cp template-configuration.nix configuration.nix
 ```
 
-Then modify the `configuration.conf` according to where your NixOS runs currently.
+Then modify the `configuration.nix` according to where your NixOS runs currently.
 
 ```bash
-# Make sure you have confiured configuration.conf
+# Check your nix channels
+sudo nix-channel --list
+# Add 
+sudo nixos-rebuild switch --option substituters https://mirrors.tuna.tsinghua.edu.cn/nix-channels/nixos-25.11
+# For NixOS-WSL, you may need to check your `nixos-wsl` channel
+
+# Rebuild and switch to new OS generation
+# Make sure you have configured configuration.nix
 sudo nixos-rebuild switch --option substituters https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store
 sudo reboot # This will reboot your device!
 ```
 
-After your device starts, you should see tuigreet for login.
+After your device starts, you should see interface of tuigreet for login.
 
-Configure oh-my-zsh and p10k following their interactive configurations after the zsh starts.
+Configure oh-my-zsh and p10k following their interactive configurations
+after the zsh starts.
 
 ## Configuration
 
-You configure it mainly in the `/etc/nixos` directory just like what you do ordinarily in NixOS.
+You configure it mainly in the `/etc/nixos` directory
+just like what you do ordinarily in NixOS.
 
 ### Extra configuration with nix
 
-See # Options in [template](template-configuration.nix) for those I declared in file `option`.
+See # Options in [template](template-configuration.nix)
+for those I declared in file `option`.
 
 ### Configuration not with nix
 
-* For nvim (the `$EDITOR`), I recommend to [install](https://www.lazyvim.org/installation) [LazyVim](https://www.lazyvim.org/).
+* For nvim (the `$EDITOR`), I recommend to
+[install](https://www.lazyvim.org/installation) [LazyVim](https://www.lazyvim.org/).
 
 * If you choose [kitty](https://sw.kovidgoyal.net/kitty/) in `/etc/nixos/configuration.nix`,
-then you [configure](https://sw.kovidgoyal.net/kitty/overview/#configuring-kitty) it not in `/etc/nixos` but in `~/.config/kitty/kitty.conf` or pressing `ctrl+shift+f2`.
+then you [configure](https://sw.kovidgoyal.net/kitty/overview/#configuring-kitty) it
+not in `/etc/nixos` but in `~/.config/kitty/kitty.conf` or pressing `ctrl+shift+f2`.
 
 ## License
 
-This repository is licensed under MIT license. Please see [LICENSE]() for further information.
-
+This repository is licensed under MIT license. Please see `LICENSE`` for further information.
