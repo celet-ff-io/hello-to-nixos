@@ -66,6 +66,9 @@ in
   };
 
   config = {
+    # Set your time zone.
+    time.timeZone = mkDefault "Asia/Shanghai";
+
     programs.tmux = {
       enable = true;
       terminal = "tmux-256color";
@@ -222,7 +225,15 @@ in
         yazi
         neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
       ]
-      ++ (if config.hasGui then [ zed-editor wl-clipboard] else [ ]);
+      ++ (
+        if config.hasGui then
+          [
+            zed-editor
+            wl-clipboard
+          ]
+        else
+          [ ]
+      );
 
     environment.sessionVariables = {
       EDITOR = "nvim";

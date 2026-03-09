@@ -1,8 +1,11 @@
 # Locale config
-{ config, lib, pkgs, ... }: {
-  # Set your time zone.
-  time.timeZone = lib.mkDefault "Asia/Shanghai";
-
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   # Select internationalisation properties.
   i18n.defaultLocale = lib.mkDefault "en_US.UTF-8";
 
