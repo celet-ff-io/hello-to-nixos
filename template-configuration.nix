@@ -75,6 +75,14 @@ in
   # programs.foot.enable = true;
   # terminal.kitty.enable = true;
 
+  # An option to not install Hyprexpo plugin for Hyprland
+  # in case that Hyprexpo and Hyprland do not share the same version
+  # however building of Hyprexpo usually requires the same version of Hyprland.
+  # For installation only,
+  # that simply enabling this won't make Hyprexpo work
+  # unless you enable it in your `~/.config/hypr/hyprland.conf`.
+  # programs.hyprland.plugins.hyprexpo.enable = false;
+
   # =============
 
   # Disk parts

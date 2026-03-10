@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add `programs.hyprland.plugins.hyprexpo.enable`
+  to make Hyprexpo plugin could be disabled.
+- Add `programs.hyprland.plugins.hyprexpo.enable`
+  to make it could be not installed
+  in case that Hyprexpo and Hyprland do not share the same version
+  however building of Hyprexpo usually requires the same version of Hyprland.
+
 ### Changed
 
 - Disable pkgs.qemu_full.cephSupport.
