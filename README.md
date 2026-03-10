@@ -1,6 +1,6 @@
 # Ariete's Hello to NixOS
 
-My NixOS configuration. A configuration without Home Manager or Flakes.
+My NixOS configuration. A configuration without Home Manager.
 
 ## Properties
 
