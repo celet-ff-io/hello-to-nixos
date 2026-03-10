@@ -1,11 +1,23 @@
 # Virtualisation
-{ config, lib, pkgs, ... }: {
-  boot.kernelModules = [ "vfio" "vfio_pci" "vfio_iommu_type1" ];
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
+  boot.kernelModules = [
+    "vfio"
+    "vfio_pci"
+    "vfio_iommu_type1"
+  ];
   environment.systemPackages = with pkgs; [ virtiofsd ];
   virtualisation.libvirtd = {
     enable = true;
     qemu = {
-      package = pkgs.qemu_full;
+      package = pkgs.qemu_full.override {
+        cephSupport = false;
+      };
       swtpm.enable = true;
       verbatimConfig = ''
         namespaces = []

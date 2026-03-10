@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Disable pkgs.qemu_full.cephSupport.
+
 ## 2.0.1 - 2026-03-09
 
 - Fix bug in `./modules/common/optional/default.nix`.
