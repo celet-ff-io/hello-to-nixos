@@ -28,7 +28,7 @@ in
     # })
 
     (import "${hello-to-nixos}/modules/common/os-builder.nix" "x86_64-linux") # Experimental features and mirrors
-    (import "${hello-to-nixos}/modules/devspec/locale.nix") # Timezone and language
+    (import "${hello-to-nixos}/modules/devspec/locale.nix") # Locale
     (import "${hello-to-nixos}/modules/devspec/watchdog.nix") # Watchdog
     (import "${hello-to-nixos}/modules/devspec/printer.nix")
     (import "${hello-to-nixos}/modules/devspec/sound.nix") # pipeware

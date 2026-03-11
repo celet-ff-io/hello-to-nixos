@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Correct outdated descriptions in `./template-configuration.nix`.
+
 ### Removed
 
 - Disable `system.copySystemConfiguration` to support flakes.
