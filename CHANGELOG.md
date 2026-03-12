@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## 2.2.0 - 2026-03-12
+
+### Added
+
+- Add `nb` and `zk`.
+
 ### Fixed
 
 - Correct outdated descriptions in `./template-configuration.nix`.
