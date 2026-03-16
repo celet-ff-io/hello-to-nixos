@@ -13,6 +13,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add `jmtpfs`.
 
+## 2.2.1 - 2026-03-16
+
+### Fixed
+
+- Correct wrong guide in README.
+
 ## 2.2.0 - 2026-03-12
 
 ### Added

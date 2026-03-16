@@ -93,21 +93,26 @@ sed -i "s#/path/to/hello-to-nixos#$HTN#" ./configuration.nix
 
 Then modify the `configuration.nix` according to your current NixOS configuration.
 
-Rebuild your system:
+Add nix-channel:
 
 ```bash
 # Check your nix channels
 sudo nix-channel --list
 # You may use channel of nixos stable instead
-sudo nixos-rebuild switch --option substituters https://mirrors.tuna.tsinghua.edu.cn/nix-channels/nixos-unstable
+sudo nix-channel --add \
+https://mirrors.tuna.tsinghua.edu.cn/nix-channels/nixos-unstable nixos
 # For NixOS-WSL, you may need to check your `nixos-wsl` channel
-
-# Rebuild and switch to new OS generation
-# Make sure you have configured `configuration.nix`
-sudo nixos-rebuild switch --option substituters https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store
-sudo reboot # This will reboot your device!
 ```
 
+Rebuild your system:
+
+```bash
+# Rebuild and switch to new OS generation
+# Make sure you have configured `configuration.nix`!
+sudo nixos-rebuild switch --option substituters https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store
+```
+
+Once everything is ready, use `sudo reboot` to reboot.
 After your device starts, you should see interface of tuigreet for login.
 
 Configure oh-my-zsh and p10k following their interactive configurations
