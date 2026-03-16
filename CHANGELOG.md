@@ -13,6 +13,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add `jmtpfs`.
 
+- Add `./templates/flake.nix` for Flakes users.
+
+### Changed
+
+- `./template-configuration.nix` is divided to
+  `./templates/configuration.nix` and `./templates/common.nix`.
+
 ## 2.2.1 - 2026-03-16
 
 ### Fixed

@@ -57,10 +57,11 @@ of nnn (use with `n` in shell) and `y` for yazi
 
 1. Clone this repository and let shell variable `HTN` be its path.
 
-2. Backup your current `/etc/nixos/configuration.nix`.
+2. Backup your current `/etc/nixos/configuration.nix` or `flake.nix`.
 
-3. Clone `$HTN/template-configuration.nix` to `/etc/nixos/configuration.nix`,
-  change the `"/path/to/hello-to-nixos"` in your configuration copied from template
+3. Clone `common.nix`, and `configuration.nix` (or `flake.nix` if using flakes)
+  from `$HTN/templates/` to `/etc/nixos/`.
+  Change the `"/path/to/hello-to-nixos"` in your configuration copied from template
   to the value of `"$HTN"` in shell,
   and **modify your new configuration** according to your backup made in step 2.
 
@@ -78,24 +79,40 @@ Install the hello-to-nixos configuration:
 
 ```bash
 # Clone repository
-HTN='/path/to/hello-to-nixos'
+HTN='/path/to/hello-to-nixos' # No trailing "/" here
 mkdir -p "$HTN"
 git clone https://github.com/celet-ff-io/hello-to-nixos.git "$HTN"
 
-# Install config
+# Install configuration
 sudo chown -R $(whoami):wheel /etc/nixos
 cd /etc/nixos
 cp ./configuration.nix ./configuration.nix.bak
-cp "$HTN/template-configuration.nix" ./configuration.nix
+cp "$HTN/templates/common.nix" ./common.nix
+```
+
+Install the rest configuration **without flakes**:
+
+```bash
+cp "$HTN/templates/configuration.nix" ./configuration.nix
 # Replace the placeholder path '/path/to/hello-to-nixos' to "$HTN"
 sed -i "s#/path/to/hello-to-nixos#$HTN#" ./configuration.nix
 ```
 
-Then modify the `configuration.nix` according to your current NixOS configuration.
-
-Add nix-channel:
+Or **with flakes**:
 
 ```bash
+cp "$HTN/templates/flake.nix" ./flake.nix
+# Replace the placeholder path '/path/to/hello-to-nixos' to "$HTN"
+sed -i "s#/path/to/hello-to-nixos#$HTN#" ./flake.nix
+```
+
+Then modify the `configuration.nix` according to your current NixOS configuration.
+
+Add nix-channel if you are **without flakes**:
+
+```bash
+# Flake users may skip this step!
+
 # Check your nix channels
 sudo nix-channel --list
 # You may use channel of nixos stable instead
@@ -104,13 +121,23 @@ https://mirrors.tuna.tsinghua.edu.cn/nix-channels/nixos-unstable nixos
 # For NixOS-WSL, you may need to check your `nixos-wsl` channel
 ```
 
-Rebuild your system:
+Rebuild your system **without flakes**:
 
 ```bash
 # Rebuild and switch to new OS generation
 # Make sure you have configured `configuration.nix`!
 sudo nixos-rebuild switch --option substituters https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store
 ```
+
+Or **with flakes**:
+
+```bash
+sudo nixos-rebuild switch --switch --option substituters https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store
+```
+
+After the first success,
+substituters will be set in configuration of this repository,
+and you do not need to add `--option substituters` anymore.
 
 Once everything is ready, use `sudo reboot` to reboot.
 After your device starts, you should see interface of tuigreet for login.
