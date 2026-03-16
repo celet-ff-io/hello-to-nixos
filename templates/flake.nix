@@ -3,10 +3,19 @@
 
   inputs = {
     nixpkgs.url = "git+https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git?ref=nixos-unstable&shallow=1";
+    # Or from Githbu:
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     hello-to-nixos = {
       url = "git+file:///path/to/hello-to-nixos";
+      # Or from Github:
+      # url = "github:celet-ff-io/hello-to-nixos";
       flake = false;
     };
+
+    # Required if you are using WSL
+    # nixos-wsl.url = "git+file:///path/to/nixos-wsl";
+    # Or from Github:
+    # nixos-wsl.url = "github:nix-community/NixOS-WSL";
   };
 
   outputs =
@@ -51,9 +60,7 @@
           # (import "${hello-to-nixos}/modules/devspec/virtualisation.nix") # Virtualisation (QEMU)
 
           # Enable only if you are using WSL
-          # Please make sure your nixos-wsl in nix-channel is updated to lastest version
-          # or wsl.ssh-agent.enable may not exist and cause error
-          # <nixos-wsl/modules>
+          # (import "${nixos-wsl}/modules")
           # (import "${hello-to-nixos}/modules/devspec/wsl.nix" "nixos")
 
           (import "${hello-to-nixos}/modules/common/users.nix" "nixos")

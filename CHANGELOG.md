@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## 2.3.1 - 2026-03-16
+
+### Changed
+
+- Add URL of Github repoistories as optional input in templates.
+
+### Fixed
+
+- Remove `<nixos-wsl/modules>` in `./templates/flake.nix`.
+
 ## 2.3.0 - 2026-03-16
 
 ### Added
