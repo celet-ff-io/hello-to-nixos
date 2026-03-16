@@ -18,6 +18,7 @@ hostPlatform:
   environment.systemPackages = with pkgs; [
     fuse
     fuse3
+    jmtpfs
   ];
 
   # Copy the NixOS configuration file and link it from the resulting system
