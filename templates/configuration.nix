@@ -9,55 +9,63 @@
 }:
 let
   # Set it to where this repository you cloned is
-  hello-to-nixos = "/path/to/hello-to-nixos";
+  hello-to-nixos = import /path/to/hello-to-nixos;
 in
 {
   imports = [
     ./common.nix
+    # And more your own modules
+  ]
+  #
+  # =============================
+  # Required if you are using WSL
+  # ++ [ <nixos-wsl/modules> ]
+  # =============================
+  #
+  # Hello-to-NixOS Modules
+  #
+  # See `default.nix` at repository root
+  # for detailed module definations
+  ++ (with hello-to-nixos; [
+    devspec.commonhw # systemd boot
+    devspec.hw.wireless-adapter
+    devspec.hw.thunderbolt
+    devspec.hw.i2c
+    devspec.hw.cpu.intel # Enable kvm-intel
+    devspec.hw.cpu.amd # Enable kvm-amd
+    devspec.hw.gpu.intel.enable # Enable i915
+    devspec.hw.gpu.amd.enable # Enable amdgpu
+    devspec.hw.gpu.nvidia.disable # Disable NVIDIA
 
-    # Modules
+    (devspec.luks {
+      deviceLuksProvides = "luksDevice0";
+      deviceLuksOn = "/dev/disk/by-uuid/<uuid>";
+    })
 
-    (import "${hello-to-nixos}/modules/devspec/commonhw.nix") # systemd boot
-    (import "${hello-to-nixos}/modules/devspec/hw/wireless-adapter.nix")
-    # (import "${hello-to-nixos}/modules/devspec/hw/thunderbolt.nix")
-    # (import "${hello-to-nixos}/modules/devspec/hw/i2c.nix")
-    # (import "${hello-to-nixos}/modules/devspec/hw/cpu/intel.nix") # Enable kvm-intel
-    # (import "${hello-to-nixos}/modules/devspec/hw/cpu/amd.nix") # Enable kvm-amd
-    # (import "${hello-to-nixos}/modules/devspec/hw/gpu/intel") # Enable i915
-    # (import "${hello-to-nixos}/modules/devspec/hw/gpu/amd") # Enable amdgpu
-    # (import "${hello-to-nixos}/modules/devspec/hw/gpu/nvidia/disable.nix") # Disable NVIDIA
-    # (import "${hello-to-nixos}/modules/devspec/luks.nix" {
-    #   deviceLuksProvides = "luksDevice0";
-    #   deviceLuksOn = "/dev/disk/by-uuid/<uuid>";
-    # })
+    (common.os-builder "x86_64-linux") # OS building configurations
+    devspec.locale # Locale
+    devspec.watchdog # Watchdog
+    # devspec.virtualisation# Virtualisation (QEMU)
+    devspec.printer
+    devspec.sound # pipeware
+    # devspec.fprint # fprintd
+    # devspec.battery # power save
 
-    (import "${hello-to-nixos}/modules/common/os-builder.nix" "x86_64-linux") # Experimental features and mirrors
-    (import "${hello-to-nixos}/modules/devspec/locale.nix") # Locale
-    (import "${hello-to-nixos}/modules/devspec/watchdog.nix") # Watchdog
-    (import "${hello-to-nixos}/modules/devspec/printer.nix")
-    (import "${hello-to-nixos}/modules/devspec/sound.nix") # pipeware
-    # (import "${hello-to-nixos}/modules/devspec/fprint.nix") # fprintd
-    # (import "${hello-to-nixos}/modules/devspec/battery.nix") # power save
+    devspec.greet # greetd login
+    devspec.terminal # kmscon and more
+    # devspec.desk.common # Desktop common
+    # devspec.desk.hyprland # Hyprland
 
-    (import "${hello-to-nixos}/modules/devspec/greet.nix") # greetd login
-    (import "${hello-to-nixos}/modules/devspec/terminal.nix") # kmscon and more
-    # (import "${hello-to-nixos}/modules/devspec/desk/common.nix") # Desktop common
-    # (import "${hello-to-nixos}/modules/devspec/desk/hyprland.nix") # Hyprland
-    # (import "${hello-to-nixos}/modules/devspec/virtualisation.nix") # Virtualisation (QEMU)
+    # Enable ONLY IF you are using WSL
+    # (devspec.wsl "nixos")
 
-    # Enable only if you are using WSL
-    # Please make sure your nixos-wsl in nix-channel is updated to lastest version
-    # or wsl.ssh-agent.enable may not exist and cause error
-    # <nixos-wsl/modules>
-    # (import "${hello-to-nixos}/modules/devspec/wsl.nix" "nixos")
+    (common.users "nixos")
+    common.basic-software # nvim, zsh, tmux, git and more
 
-    (import "${hello-to-nixos}/modules/common/users.nix" "nixos")
-    (import "${hello-to-nixos}/modules/common/basic-software.nix") # nvim, zsh, tmux, git and more
-    (import "${hello-to-nixos}/modules/common/optional/ssh.nix")
-    # (import "${hello-to-nixos}/modules/common/optional/developer.nix") # cargo and more
-    # (import "${hello-to-nixos}/modules/common/optional/browsers.nix") # browser applications
-    # (import "${hello-to-nixos}/modules/common/optional/documents.nix") # chafa and more
-    # (import "${hello-to-nixos}/modules/common/optional/proxy.nix") # proxy applications
-    # (import "${hello-to-nixos}/modules/common/optional/localsend.nix") # LocalSend
-  ];
+    common.optional.ssh
+    # common.optional.browsers # cargo and more
+    # common.optional.documents # browser applications
+    # common.optional.proxy # chafa and more
+    # common.optional.localsend # localsend
+  ]);
 }

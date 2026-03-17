@@ -49,6 +49,7 @@
           devspec.hw.gpu.intel.enable # Enable i915
           devspec.hw.gpu.amd.enable # Enable amdgpu
           devspec.hw.gpu.nvidia.disable # Disable NVIDIA
+
           (devspec.luks {
             deviceLuksProvides = "luksDevice0";
             deviceLuksOn = "/dev/disk/by-uuid/<uuid>";
