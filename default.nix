@@ -1,5 +1,4 @@
 # Hello to NixOS II in configuration.nix
-{ ... }:
 {
   common = {
     os-builder = hostPlatform: import ./modules/common/os-builder.nix hostPlatform;
