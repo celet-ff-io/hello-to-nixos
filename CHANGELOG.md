@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## 2.3.1 - 2026-03-17
+
 ### Added
 
 - Add `./default.nix` and `./flake.nix`.
