@@ -13,6 +13,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add `./default.nix` and `./flake.nix`.
 
+### Changed
+
+- Templates `./templates/configuration.nix`
+  and `./templates/flake.nix` are simplified.
+
 ## 2.3.1 - 2026-03-16
 
 ### Changed
