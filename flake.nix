@@ -38,6 +38,7 @@
 
           locale = ./modules/devspec/locale.nix;
           watchdog = ./modules/devspec/watchdog.nix;
+          virtualisation = ./modules/devspec/virtualisation.nix;
           printer = ./modules/devspec/printer.nix;
           sound = ./modules/devspec/printer.nix;
           fprint = ./modules/devspec/fprint.nix;
@@ -50,8 +51,6 @@
             common = ./modules/devspec/desk/common.nix;
             hyprland = ./modules/devspec/desk/hyprland.nix;
           };
-
-          virtualisation = ./modules/devspec/virtualisation.nix;
 
           wsl = defaultUser: import ./modules/devspec/wsl.nix defaultUser;
         };
