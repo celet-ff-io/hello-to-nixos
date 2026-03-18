@@ -105,6 +105,7 @@ in
           set -g @continuum-save-interval '15'
 
           set -s set-clipboard on
+          set -g mouse on
         '';
     };
 
