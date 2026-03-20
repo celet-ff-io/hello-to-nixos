@@ -76,9 +76,10 @@
           common.basic-software # nvim, zsh, tmux, git and more
 
           common.optional.ssh
-          # common.optional.browsers # cargo and more
-          # common.optional.documents # browser applications
-          # common.optional.proxy # chafa and more
+          # common.optional.developer # cargo and more
+          # common.optional.browsers # browser applications
+          # common.optional.documents # chafa and more
+          # common.optional.proxy # proxy applications
           # common.optional.localsend # localsend
         ]);
       };

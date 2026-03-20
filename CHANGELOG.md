@@ -9,9 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## 2.4.1 - 2026-03-20
+
 ### Added
 
 - Set tmux mouse on
+
+### Fixed
+
+- Fix description error of modules
+  under `common.optional` in templates.
 
 ## 2.4.0 - 2026-03-17
 
