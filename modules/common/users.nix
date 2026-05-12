@@ -1,11 +1,20 @@
 # User config
 userName:
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${userName} = {
     isNormalUser = true;
     linger = true;
-    extraGroups = [ "wheel" "tss" "networkmanager" "git" "libvirtd" "kvm" ];
+    extraGroups = [
+      "wheel"
+      "tss"
+      "networkmanager"
+      "git"
+      "libvirtd"
+      "kvm"
+      "docker"
+    ];
     shell = pkgs.zsh;
   };
 

@@ -9,11 +9,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## 2.5.0 - 2026-05-12
+
+### Added
+
+- Add docker.
+- Add file the program.
+- Add more programs to C tool chain.
+
 ## 2.4.1 - 2026-03-20
 
 ### Added
 
-- Set tmux mouse on
+- Set tmux mouse on.
 
 ### Fixed
 

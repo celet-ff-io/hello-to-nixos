@@ -1,5 +1,6 @@
 # NVIDIA GPU
-{config, ...}: {
+{ config, pkgs, ... }:
+{
   hardware.nvidia = {
     modesetting.enable = true;
 
@@ -13,4 +14,8 @@
   hardware.graphics.enable = true;
 
   services.xserver.videoDrivers = [ "nvidia" ];
+
+  environment.systemPackages = with pkgs; [
+    nvitop
+  ];
 }

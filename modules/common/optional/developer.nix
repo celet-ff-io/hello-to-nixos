@@ -5,10 +5,17 @@
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
     gnumake
+    cmake
+    ninja
     gcc
+    clang
+    clang-tools
+    llvmPackages.lld
+    lldb
     binutils
     pkg-config
     gdb
+    bear
 
     rustup
 
@@ -37,6 +44,10 @@
     p7zip
     gh
     lazygit
+
+    docker
+    docker-compose
+    arion
   ];
 
   environment.variables = {
@@ -66,4 +77,6 @@
   programs.direnv.enable = true;
 
   programs.nix-index.enable = true;
+
+  virtualisation.docker.enable = true;
 }

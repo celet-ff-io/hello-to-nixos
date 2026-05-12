@@ -207,6 +207,7 @@ in
         duf
         psmisc
 
+        file
         wget
         curl
         zip
