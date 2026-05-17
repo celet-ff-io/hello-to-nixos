@@ -62,6 +62,10 @@
     RUST_SRC_PATH = "${pkgs.rustPlatform.rustLibSrc}";
   };
 
+  environment.shellInit = ''
+    export PATH="$PATH:$HOME/.cargo/bin"
+  '';
+
   programs.git = {
     enable = true;
 

@@ -181,15 +181,12 @@ in
           alias to='tmux new-session -A -s'
           alias rebuild='sudo nixos-rebuild switch'
 
-          # Environment
-          export PATH="$PATH:$HOME/.local/bin"
-
           ${tmuxOrNot}
         '';
     };
 
-    # Some programs need SUID wrappers, can be configured further or are
-    # started in user sessions.
+    environment.localBinInPath = true;
+
     programs.mtr.enable = true;
 
     programs.gnupg.agent = {
