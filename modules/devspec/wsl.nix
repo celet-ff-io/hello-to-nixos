@@ -12,9 +12,7 @@ defaultUser:
 
   tmux.status.network-connectivity.enable = false;
 
-  programs.zsh = {
-    interactiveShellInit = ''
-      alias xdg-open='explorer.exe'
-    '';
-  };
+  envrionment.shellInit = ''
+    alias xdg-open='explorer.exe'
+  '';
 }

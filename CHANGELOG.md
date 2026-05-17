@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Change root shell to zsh.
+- Alias `xdg-open` in every shell in WSL.
 
 ## 2.5.1 - 2026-05-17
 
