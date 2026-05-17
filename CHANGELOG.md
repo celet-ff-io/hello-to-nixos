@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Change root shell to zsh.
+
 ## 2.5.1 - 2026-05-17
 
 ### Added
