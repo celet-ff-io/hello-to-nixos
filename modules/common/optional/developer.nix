@@ -50,13 +50,14 @@
     arion
   ];
 
-  environment.variables = {
+  environment.sessionVariables = {
     GO111MODULE = "on";
     GOPROXY = "https://goproxy.cn,direct";
-    UV_INDEX_URL = "https://pypi.tuna.tsinghua.edu.cn/simple";
-  };
 
-  environment.sessionVariables = {
+    UV_INDEX_URL = "https://pypi.tuna.tsinghua.edu.cn/simple";
+
+    # no RUSTUP_UPDATE_ROOT
+    RUSTUP_DIST_SERVER = "https://mirrors.tuna.tsinghua.edu.cn/rustup";
     CARGO_TARGET_DIR = "$HOME/.cache/cargo-target";
     RUST_SRC_PATH = "${pkgs.rustPlatform.rustLibSrc}";
   };
