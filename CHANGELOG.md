@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## 2.5.3 - 2026-05-19
+
+### Changed
+
+- Set `CARGO_INSTALL_ROOT` to `"$HOME/.local"`
+  and remove `"$HOME/.cargo/bin"` from `PATH`.
+
 ## 2.5.2 - 2026-05-17
 
 ### Add

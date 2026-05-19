@@ -60,10 +60,7 @@
     RUSTUP_DIST_SERVER = "https://mirrors.tuna.tsinghua.edu.cn/rustup";
     RUST_SRC_PATH = "${pkgs.rustPlatform.rustLibSrc}";
     CARGO_TARGET_DIR = "$HOME/.cache/cargo-target";
-
-    PATH = [
-      "$HOME/.cargo/bin/"
-    ];
+    CARGO_INSTALL_ROOT = "$HOME/.local";
   };
 
   programs.git = {
