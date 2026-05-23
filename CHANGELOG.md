@@ -9,6 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## 2.6.0 - 2026-05-23
+
+### Add
+
+- Add `eza`, `dust`, `procs`, `bottom` and more useful tools.
+
+### Changed
+
+- Alias `ls`, `ll`, `la`, `l`, `tree` to commands of `eza`.
+- Alias `cat` to `bat --paging=never`.
+
 ## 2.5.3 - 2026-05-19
 
 ### Changed
