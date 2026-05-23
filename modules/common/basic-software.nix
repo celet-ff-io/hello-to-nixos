@@ -186,6 +186,14 @@ in
     };
 
     environment.localBinInPath = true;
+    environment.shellAliases = {
+      ls = "eza --icons=auto";
+      ll = "eza --icons=auto -l";
+      la = "eza --icons=auto -lAh";
+      l = "eza --icons=auto -alh";
+      tree = "eza --icons=auto -T";
+      cat = "bat --paging=never";
+    };
 
     programs.mtr.enable = true;
 
@@ -200,11 +208,17 @@ in
       with pkgs;
       [
         fastfetch
-        htop
-        duf
-        psmisc
-
         file
+        tree
+        duf
+        dust
+        htop
+        bottom
+        btop
+        psmisc
+        procs
+
+        trash-cli
         wget
         curl
         zip
@@ -213,12 +227,12 @@ in
         git-crypt
         appimage-run
 
-        trash-cli
+        bat
+        eza
         ripgrep
         fd
         fzf
         jq
-        bat
 
         (nnn.override { withNerdIcons = true; })
         yazi
