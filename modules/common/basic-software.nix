@@ -177,7 +177,7 @@ in
           source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
           source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
 
-          # Alias
+          # Alias only for interactive users
           alias to='tmux new-session -A -s'
           alias rebuild='sudo nixos-rebuild switch'
 
