@@ -12,7 +12,7 @@ defaultUser:
 
   tmux.status.network-connectivity.enable = false;
 
-  envrionment.shellAliases = {
+  environment.shellAliases = {
     xdg-open = "explorer.exe";
   };
 }
