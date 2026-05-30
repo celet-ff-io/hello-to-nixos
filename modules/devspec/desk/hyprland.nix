@@ -1,26 +1,10 @@
 # Hyprland
 {
-  config,
   lib,
   pkgs,
   ...
 }:
-let
-  cfg = config.programs.hyprland;
-  inherit (lib)
-    mkOption
-    types
-    ;
-in
 {
-  options = {
-    programs.hyprland.plugins.hyprexpo.enable = mkOption {
-      type = types.bool;
-      default = true;
-      description = "Set this to false to do not install Hyprexpo plugin for Hyprland";
-    };
-  };
-
   config = {
     hasGui = lib.mkDefault true;
     hasDesktop = lib.mkDefault true;
@@ -36,20 +20,10 @@ in
     programs.hyprlock.enable = true;
     services.hypridle.enable = true;
 
-    environment.systemPackages =
-      with pkgs;
-      [
-        hyprpaper
-        hyprpicker
-        hyprcursor
-      ]
-      ++ (
-        if cfg.plugins.hyprexpo.enable then
-          [
-            hyprlandPlugins.hyprexpo
-          ]
-        else
-          [ ]
-      );
+    environment.systemPackages = with pkgs; [
+      hyprpaper
+      hyprpicker
+      hyprcursor
+    ];
   };
 }
