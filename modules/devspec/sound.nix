@@ -1,5 +1,5 @@
 # Sound config
-{...}: {
+{ ... }: {
   # Enable sound.
   # services.pulseaudio.enable = true;
   # OR
@@ -11,4 +11,5 @@
   };
 
   security.rtkit.enable = true;
+  systemd.user.services.mpris-proxy.wantedBy = [ "default.target" ];
 }

@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Let `mpris-proxy` service wanted by `default.target`
+  to play controller works.
+
 ## 2.6.2 - 2026-05-30
 
 ### Removed
