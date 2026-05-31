@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Add `inputs` for `flake.nix`.
 - Let `mpris-proxy` service wanted by `default.target`
   to play controller works.
 

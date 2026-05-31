@@ -1,6 +1,10 @@
 {
   description = "Hello to NixOS II in Flakes";
 
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+  };
+
   outputs =
     { ... }:
     {
