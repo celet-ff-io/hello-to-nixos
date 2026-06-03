@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## 2.8.0 - 2026-06-03
+
+### Added
+
+- Add `openssl`.
+
+### Changed
+
+- Move `lazygit` to `basic-software.nix`.
+
 ## 2.7.0 - 2026-05-31
 
 ### Added

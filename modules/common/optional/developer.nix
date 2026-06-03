@@ -43,7 +43,6 @@
 
     p7zip
     gh
-    lazygit
 
     docker
     docker-compose

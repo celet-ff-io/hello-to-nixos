@@ -225,6 +225,7 @@ in
         unzip
         gnupg
         git-crypt
+        openssl
         appimage-run
 
         bat
@@ -234,6 +235,7 @@ in
         fzf
         jq
 
+        lazygit
         (nnn.override { withNerdIcons = true; })
         yazi
         neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
