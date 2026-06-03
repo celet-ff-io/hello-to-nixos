@@ -12,6 +12,9 @@ hostPlatform:
     "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
   ];
 
+  nix.optimise.automatic = true;
+  nix.gc.automatic = true;
+
   nixpkgs.config.allowUnfree = true;
   programs.nix-ld.enable = true;
   programs.git.enable = true;
