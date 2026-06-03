@@ -1,5 +1,11 @@
 # Common hardware configs
-{ lib, pkgs, modulesPath, ... }: {
+{
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
+{
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_6_18;
@@ -12,8 +18,16 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 3;
 
-  boot.initrd.availableKernelModules =
-    [ "ahci" "nvme" "xhci_pci" "usb_storage" "usbhid" "sd_mod" ];
+  boot.tmp.cleanOnBoot = true;
+
+  boot.initrd.availableKernelModules = [
+    "ahci"
+    "nvme"
+    "xhci_pci"
+    "usb_storage"
+    "usbhid"
+    "sd_mod"
+  ];
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
