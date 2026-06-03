@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Enable `nix.gc.automatic` and `nix.optimise.automatic`.
 
+### Fixed
+
+- Remove option which had removed, in `./templates/common.nix`.
+
 ## 2.8.0 - 2026-06-03
 
 ### Added

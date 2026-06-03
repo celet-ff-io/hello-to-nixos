@@ -26,13 +26,9 @@
   # programs.foot.enable = true;
   # terminal.kitty.enable = true;
 
-  # An option to not install Hyprexpo plugin for Hyprland
-  # in case that Hyprexpo and Hyprland do not share the same version
-  # however building of Hyprexpo usually requires the same version of Hyprland.
-  # For installation only,
-  # that simply enabling this won't make Hyprexpo work
-  # unless you enable it in your `~/.config/hypr/hyprland.conf`.
-  # programs.hyprland.plugins.hyprexpo.enable = false;
+  # =============
+
+  # nix.settings.auto-optimise-store = true;
 
   # =============
 
@@ -79,6 +75,8 @@
 
   # Swap
   swapDevices = [ ];
+
+  zramSwap.enable = true;
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
