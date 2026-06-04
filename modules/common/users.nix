@@ -25,7 +25,5 @@ userName:
   systemd.tmpfiles.rules = [
     "z /etc/nixos 2755 ${userName} wheel  - -"
     "Z /etc/nixos -    ${userName} wheel  - -"
-    "z /srv/git   2775 ${userName} git    - -"
-    "Z /srv/git   -    ${userName} git    - -"
   ];
 }

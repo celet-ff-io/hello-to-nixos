@@ -11,7 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-- `git` group for main user.
+- Remove `git` group for main user.
+- Remove `systemd.tmpfiles.rules` definition for `/srv/git`.
 
 ## 2.8.1 - 2026-06-03
 
