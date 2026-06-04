@@ -23,6 +23,8 @@ userName:
         shell = pkgs.zsh;
       };
     };
+
+    defaultUserShell = pkgs.bash;
   };
 
   security.sudo.wheelNeedsPassword = false;
