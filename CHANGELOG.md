@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- `git` group for main user.
+
 ## 2.8.1 - 2026-06-03
 
 ### Added

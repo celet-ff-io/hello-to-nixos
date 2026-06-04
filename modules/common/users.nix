@@ -10,7 +10,6 @@ userName:
       "wheel"
       "tss"
       "networkmanager"
-      "git"
       "libvirtd"
       "kvm"
       "docker"
@@ -20,8 +19,6 @@ userName:
   users.users.root = {
     shell = pkgs.zsh;
   };
-
-  users.groups.git = { };
 
   security.sudo.wheelNeedsPassword = false;
 
