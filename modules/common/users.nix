@@ -2,22 +2,27 @@
 userName:
 { pkgs, ... }:
 {
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.${userName} = {
-    isNormalUser = true;
-    linger = true;
-    extraGroups = [
-      "wheel"
-      "tss"
-      "networkmanager"
-      "libvirtd"
-      "kvm"
-      "docker"
-    ];
-    shell = pkgs.zsh;
-  };
-  users.users.root = {
-    shell = pkgs.zsh;
+  users = {
+    # Define a user account. Don't forget to set a password with ‘passwd’.
+    users = {
+      ${userName} = {
+        isNormalUser = true;
+        linger = true;
+        extraGroups = [
+          "wheel"
+          "tss"
+          "networkmanager"
+          "libvirtd"
+          "kvm"
+          "docker"
+        ];
+        shell = pkgs.zsh;
+      };
+
+      root = {
+        shell = pkgs.zsh;
+      };
+    };
   };
 
   security.sudo.wheelNeedsPassword = false;
