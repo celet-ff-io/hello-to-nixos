@@ -29,6 +29,8 @@
 
     nodejs
     corepack
+    pnpm
+    bun
 
     lua5_1
     luarocks
