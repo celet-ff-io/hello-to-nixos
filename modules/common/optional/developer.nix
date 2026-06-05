@@ -44,9 +44,10 @@
     p7zip
     gh
 
-    docker
     docker-compose
     arion
+    lazydocker
+    podman-tui
   ];
 
   environment.sessionVariables = {
@@ -86,6 +87,7 @@
     podman = {
       enable = true;
       dockerCompat = true;
+      dockerSocket.enable = true;
     };
   };
 }
