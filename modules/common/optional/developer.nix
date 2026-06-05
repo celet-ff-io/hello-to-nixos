@@ -62,22 +62,25 @@
     CARGO_INSTALL_ROOT = "$HOME/.local";
   };
 
-  programs.git = {
-    enable = true;
+  programs = {
+    git = {
+      enable = true;
 
-    config = {
-      init = {
-        defaultBranch = "main";
-      };
-      core = {
-        editor = "nvim";
+      config = {
+        init = {
+          defaultBranch = "main";
+        };
+        core = {
+          editor = "nvim";
+        };
       };
     };
+
+    direnv.enable = true;
+
+    nix-index.enable = true;
   };
 
-  programs.direnv.enable = true;
-
-  programs.nix-index.enable = true;
-
-  virtualisation.docker.enable = true;
+  virtualisation.podman.enable = true;
+  virtualisation.podman.dockerCompat = true;
 }

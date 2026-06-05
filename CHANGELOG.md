@@ -9,8 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add `podman` as alternative of `docker`.
+
 ### Removed
 
+- Remove `docker` (use `podman` instead).
 - Remove `git` group for main user.
 - Remove `systemd.tmpfiles.rules` definition for `/srv/git`.
 
