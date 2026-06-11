@@ -23,6 +23,7 @@
 
     go
     protobuf
+    buf
 
     openjdk21
     gradle
