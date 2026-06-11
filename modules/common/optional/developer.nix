@@ -13,9 +13,11 @@
     llvmPackages.lld
     lldb
     binutils
-    pkg-config
     gdb
     bear
+
+    pkg-config
+    openssl.dev
 
     rustup
 
@@ -53,6 +55,8 @@
   ];
 
   environment.sessionVariables = {
+    PKG_CONFIG_PATH = "/run/current-system/sw/lib/pkgconfig:/run/current-system/sw/share/pkgconfig";
+
     GO111MODULE = "on";
     GOPROXY = "https://goproxy.cn,direct";
 

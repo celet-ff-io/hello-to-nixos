@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `bun` and explicit `pnpm` for `nodejs`.
 - Add `podman` as alternative of `docker`.
 
+### Fixed
+
+- Fix `pkg-config` for `openssl.dev`.
+
 ### Removed
 
 - Remove `docker` (use `podman` instead).
