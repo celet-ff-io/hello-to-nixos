@@ -1,6 +1,15 @@
 # WIFI and Bluetooth
-{ config, lib, ... }: {
-  boot.kernelModules = [ "iwlwifi" "btusb" ];
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
+  boot.kernelModules = [
+    "iwlwifi"
+    "btusb"
+  ];
 
   hardware.bluetooth = {
     enable = true;
@@ -11,4 +20,8 @@
 
   # Configure network connections interactively with nmcli or nmtui.
   networking.networkmanager.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    wifitui
+  ];
 }
