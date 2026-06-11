@@ -22,6 +22,7 @@
     rustup
 
     go
+    protobuf
 
     openjdk21
     gradle
