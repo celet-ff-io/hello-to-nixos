@@ -24,6 +24,7 @@
       hyprpaper
       hyprpicker
       hyprcursor
+      grimblast
     ];
   };
 }

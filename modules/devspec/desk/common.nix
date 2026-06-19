@@ -16,6 +16,7 @@
     rofi
     waybar
     mako
+    wayshot
     grim
     slurp
     pavucontrol
