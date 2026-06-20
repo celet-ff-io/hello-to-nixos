@@ -16,20 +16,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `wifitui`.
 - Add `bun` and explicit `pnpm` for `nodejs`.
 - Add `podman` as alternative of `docker`.
+- Add `greeting` the nix option taking instead of `tuigreet.greeting`.
 
 ### Changed
 
 - Fit `kmscon` settings to newer version of `nixpkgs`.
+- Make `foot` with Wayland the default instead of `kmscon`.
+- Write greeting message to `/etc/issue`.
 
 ### Fixed
 
 - Fix `pkg-config` for `openssl.dev`.
+- Fix multi-line command in `greetd`.
 
 ### Removed
 
 - Remove `docker` (use `podman` instead).
 - Remove `git` group for main user.
 - Remove `systemd.tmpfiles.rules` definition for `/srv/git`.
+- Remove `kmscon` as startup option in `greetd` logining.
+- Remove `tuigreet.greeting` the nix option.
 
 ## 2.8.1 - 2026-06-03
 

@@ -48,6 +48,7 @@ in
 
       # Enable foot by `programs.foot.enable`
       programs.foot = {
+        enable = true;
         enableZshIntegration = config.programs.zsh.enable;
         settings = {
           main = {

@@ -10,7 +10,7 @@ See [docs](docs/docs.md) for details.
 
 * [tuigreet](https://github.com/apognu/tuigreet)
   on [greetd](https://github.com/kennylevinsen/greetd) as console greeter
-* [KMSCON](https://github.com/kmscon/kmscon) instead of default terminal,
+* [KMSCON](https://github.com/kmscon/kmscon) instead of default VT,
   to display the [nerd font](https://www.nerdfonts.com/) JetBrainsMono Nerd Font
 * [Zsh](https://www.zsh.org/) as shell
 * [tmux](https://tmux.info/)
@@ -22,7 +22,7 @@ See [docs](docs/docs.md) for details.
 
 With [Wayland](https://wayland.freedesktop.org/)
 [Cage](https://www.hjdskes.nl/projects/cage/)
-environment (when foot or kitty enabled):
+environment:
 
 * [Foot](https://codeberg.org/dnkl/foot) as terminal
 * [Kitty](https://sw.kovidgoyal.net/kitty/) as terminal
