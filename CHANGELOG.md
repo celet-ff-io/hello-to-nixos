@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `bun` and explicit `pnpm` for `nodejs`.
 - Add `podman` as alternative of `docker`.
 - Add `greeting` the nix option taking instead of `tuigreet.greeting`.
+- Alias `edit` to `$EDITOR`.
 
 ### Changed
 

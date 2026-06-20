@@ -69,198 +69,204 @@ in
     # Set your time zone.
     time.timeZone = mkDefault "Asia/Shanghai";
 
-    programs.tmux = {
-      enable = true;
-      terminal = "tmux-256color";
-      keyMode = "vi";
-      plugins = with pkgs.tmuxPlugins; [
-        catppuccin
-        yank
-        resurrect
-      ];
-      extraConfig =
-        let
-          setConnectivity =
-            if config.tmux.status.network-connectivity.enable then
-              "#(${tmuxConnectivityStatusDir}/bin/tmux-connectivity-status)"
-            else
-              "";
-        in
-        ''
-          bind h select-pane -L
-          bind j select-pane -D
-          bind k select-pane -U
-          bind l select-pane -R
-
-          bind -r H resize-pane -L 1
-          bind -r J resize-pane -D 1
-          bind -r K resize-pane -U 1
-          bind -r L resize-pane -R 1
-
-          set -g status-right '${setConnectivity}${config.tmux.status.battery} #[bg=default,fg=default]  %H:%M %Y/%m/%d'
-
-          set -g @catppuccin_flavor 'mocha'
-
-          set -g @continuum-restore 'on'
-          set -g @continuum-save-interval '15'
-
-          set -s set-clipboard on
-          set -g mouse on
-        '';
-    };
-
-    programs.zsh = {
-      enable = true;
-
-      ohMyZsh = {
+    programs = {
+      tmux = {
         enable = true;
-        plugins = [
-          "git"
-          "z"
-          "tmux"
-          "extract"
-          "web-search"
-          "sudo"
+        terminal = "tmux-256color";
+        keyMode = "vi";
+        plugins = with pkgs.tmuxPlugins; [
+          catppuccin
+          yank
+          resurrect
         ];
+        extraConfig =
+          let
+            setConnectivity =
+              if config.tmux.status.network-connectivity.enable then
+                "#(${tmuxConnectivityStatusDir}/bin/tmux-connectivity-status)"
+              else
+                "";
+          in
+          ''
+            bind h select-pane -L
+            bind j select-pane -D
+            bind k select-pane -U
+            bind l select-pane -R
+
+            bind -r H resize-pane -L 1
+            bind -r J resize-pane -D 1
+            bind -r K resize-pane -U 1
+            bind -r L resize-pane -R 1
+
+            set -g status-right '${setConnectivity}${config.tmux.status.battery} #[bg=default,fg=default]  %H:%M %Y/%m/%d'
+
+            set -g @catppuccin_flavor 'mocha'
+
+            set -g @continuum-restore 'on'
+            set -g @continuum-save-interval '15'
+
+            set -s set-clipboard on
+            set -g mouse on
+          '';
       };
 
-      syntaxHighlighting.enable = true;
-      autosuggestions.enable = true;
-      enableCompletion = true;
+      zsh = {
+        enable = true;
 
-      interactiveShellInit =
-        let
-          tmuxOrNot =
-            let
-              inSess = ''
-                fastfetch
-              '';
-            in
-            with config.shell;
-            if autoStartTmux then
-              ''
-                # Do not run `inSess` twice
-                if [ -n "${"$"}{TMUX:-}" ]; then
+        ohMyZsh = {
+          enable = true;
+          plugins = [
+            "git"
+            "z"
+            "tmux"
+            "extract"
+            "web-search"
+            "sudo"
+          ];
+        };
+
+        syntaxHighlighting.enable = true;
+        autosuggestions.enable = true;
+        enableCompletion = true;
+
+        interactiveShellInit =
+          let
+            tmuxOrNot =
+              let
+                inSess = ''
+                  fastfetch
+                '';
+              in
+              with config.shell;
+              if autoStartTmux then
+                ''
+                  # Do not run `inSess` twice
+                  if [ -n "${"$"}{TMUX:-}" ]; then
+                    ${inSess}
+                  else
+                    ${onLogin}
+                    to $ZSH_TMUX_DEFAULT_SESSION_NAME
+                  fi
+                ''
+              else
+                ''
+                  if [ -z "${"$"}{TMUX:-}" ]; then
+                    ${onLogin}
+                  fi
                   ${inSess}
-                else
-                  ${onLogin}
-                  to $ZSH_TMUX_DEFAULT_SESSION_NAME
-                fi
-              ''
-            else
-              ''
-                if [ -z "${"$"}{TMUX:-}" ]; then
-                  ${onLogin}
-                fi
-                ${inSess}
-              '';
-        in
-        ''
-          function zvm_config() {
-            ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
-          }
+                '';
+          in
+          ''
+            function zvm_config() {
+              ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+            }
 
-          function y() {
-            local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-            command yazi "$@" --cwd-file="$tmp"
-            IFS= read -r -d "" cwd < "$tmp"
-            [ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
-            rm -f -- "$tmp"
-          }
+            function y() {
+              local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+              command yazi "$@" --cwd-file="$tmp"
+              IFS= read -r -d "" cwd < "$tmp"
+              [ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+              rm -f -- "$tmp"
+            }
 
-          _QUITCD="${nnnMisc}/quitcd/quitcd.bash_sh_zsh"
-          if [ -f "$_QUITCD" ]; then
-            source "$_QUITCD"
-          fi
-          unset _QUITCD
+            _QUITCD="${nnnMisc}/quitcd/quitcd.bash_sh_zsh"
+            if [ -f "$_QUITCD" ]; then
+              source "$_QUITCD"
+            fi
+            unset _QUITCD
 
-          source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-          source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+            source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+            source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
 
-          # Alias only for interactive users
-          alias to='tmux new-session -A -s'
-          alias rebuild='sudo nixos-rebuild switch'
+            # Alias only for interactive users
+            alias to='tmux new-session -A -s'
+            alias rebuild='sudo nixos-rebuild switch'
 
-          ${tmuxOrNot}
-        '';
+            ${tmuxOrNot}
+          '';
+      };
+
+      mtr.enable = true;
+
+      gnupg.agent = {
+        enable = true;
+        pinentryPackage = mkDefault pkgs.pinentry-curses;
+      };
     };
 
-    environment.localBinInPath = true;
-    environment.shellAliases = {
-      ls = "eza --icons=auto";
-      ll = "eza --icons=auto -l";
-      la = "eza --icons=auto -lAh";
-      l = "eza --icons=auto -alh";
-      tree = "eza --icons=auto -T";
-      cat = "bat --paging=never";
-    };
+    environment = {
+      localBinInPath = true;
 
-    programs.mtr.enable = true;
+      shellAliases = {
+        edit = "$EDITOR";
+        ls = "eza --icons=auto";
+        ll = "eza --icons=auto -l";
+        la = "eza --icons=auto -lAh";
+        l = "eza --icons=auto -alh";
+        tree = "eza --icons=auto -T";
+        cat = "bat --paging=never";
+      };
 
-    programs.gnupg.agent = {
-      enable = true;
-      pinentryPackage = mkDefault pkgs.pinentry-curses;
-    };
+      # List packages installed in system profile.
+      # You can use https://search.nixos.org/ to find more packages (and options).
+      systemPackages =
+        with pkgs;
+        [
+          fastfetch
+          file
+          tree
+          duf
+          dust
+          htop
+          bottom
+          btop
+          psmisc
+          procs
 
-    # List packages installed in system profile.
-    # You can use https://search.nixos.org/ to find more packages (and options).
-    environment.systemPackages =
-      with pkgs;
-      [
-        fastfetch
-        file
-        tree
-        duf
-        dust
-        htop
-        bottom
-        btop
-        psmisc
-        procs
+          trash-cli
+          wget
+          curl
+          zip
+          unzip
+          gnupg
+          git-crypt
+          openssl
+          appimage-run
 
-        trash-cli
-        wget
-        curl
-        zip
-        unzip
-        gnupg
-        git-crypt
-        openssl
-        appimage-run
+          bat
+          eza
+          ripgrep
+          fd
+          fzf
+          jq
 
-        bat
-        eza
-        ripgrep
-        fd
-        fzf
-        jq
+          lazygit
+          (nnn.override { withNerdIcons = true; })
+          yazi
+          neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+        ]
+        ++ (
+          if config.hasGui then
+            [
+              zed-editor
+              wl-clipboard
+            ]
+          else
+            [ ]
+        );
 
-        lazygit
-        (nnn.override { withNerdIcons = true; })
-        yazi
-        neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-      ]
-      ++ (
-        if config.hasGui then
-          [
-            zed-editor
-            wl-clipboard
-          ]
-        else
-          [ ]
-      );
+      sessionVariables = {
+        EDITOR = lib.mkDefault "nvim";
+        VISUAL = lib.mkDefault "nvim";
 
-    environment.sessionVariables = {
-      EDITOR = "nvim";
-      VISUAL = "nvim";
+        NNN_PLUG = "e:suedit;p:preview-tui";
+        NNN_PLUGINS = "{nnnSrc}/plugins";
+        NNN_OPTS = "e";
 
-      NNN_PLUG = "e:suedit;p:preview-tui";
-      NNN_PLUGINS = "{nnnSrc}/plugins";
-      NNN_OPTS = "e";
-
-      ZSH_TMUX_AUTOREFRESH = "true";
-      ZSH_TMUX_AUTOQUIT = "false";
-      ZSH_TMUX_DEFAULT_SESSION_NAME = "main";
+        ZSH_TMUX_AUTOREFRESH = "true";
+        ZSH_TMUX_AUTOQUIT = "false";
+        ZSH_TMUX_DEFAULT_SESSION_NAME = "main";
+      };
     };
   };
 }
