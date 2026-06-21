@@ -36,8 +36,7 @@
           luks =
             { deviceLuksProvides, deviceLuksOn }:
             import ./modules/devspec/luks.nix {
-              deviceLuksProvides = deviceLuksProvides;
-              deviceLuksOn = deviceLuksOn;
+              inherit deviceLuksProvides deviceLuksOn;
             };
 
           locale = ./modules/devspec/locale.nix;
