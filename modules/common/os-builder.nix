@@ -2,18 +2,21 @@
 hostPlatform:
 { lib, pkgs, ... }:
 {
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
-  nix.settings.substituters = lib.mkForce [
-    "https://mirrors.ustc.edu.cn/nix-channels/store"
-    "https://mirrors.sjtug.sjtu.edu.cn/nix-channels/store"
-    "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
-  ];
-
-  nix.optimise.automatic = true;
-  nix.gc.automatic = true;
+  nix = {
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+      substituters = lib.mkForce [
+        "https://mirrors.ustc.edu.cn/nix-channels/store"
+        "https://mirrors.sjtug.sjtu.edu.cn/nix-channels/store"
+        "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+      ];
+    };
+    optimise.automatic = true;
+    gc.automatic = true;
+  };
 
   nixpkgs.config.allowUnfree = true;
   programs.nix-ld.enable = true;
