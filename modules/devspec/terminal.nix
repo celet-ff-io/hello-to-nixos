@@ -21,8 +21,9 @@ in
       font-size = mkOption {
         type = types.int;
         default = 13;
+        description = "Font size for terminal emulators.";
       };
-      kitty.enable = mkEnableOption "Use Kitty";
+      kitty.enable = mkEnableOption "Use Kitty.";
     };
   };
 

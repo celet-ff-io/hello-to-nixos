@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Add missing description for some options.
 - Fix `pkg-config` for `openssl.dev`.
 - Fix multi-line command in `greetd`.
 
