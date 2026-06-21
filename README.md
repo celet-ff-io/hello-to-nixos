@@ -1,10 +1,8 @@
-# Ariete's Hello to NixOS
+# Hello to NixOS III
 
-My NixOS configuration. A configuration without Home Manager.
+NixOS configuration designed for myself.
 
 ## Properties
-
-See [docs](docs/docs.md) for details.
 
 ### Programs mainly included
 
@@ -95,7 +93,7 @@ Install the rest configuration **with flakes**:
 cp "$HTN/examples/flake.nix" ./flake.nix
 ```
 
-Then modify the `configuration.nix` according to your current NixOS configuration.
+Then modify the `flake.nix` according to your current NixOS configuration.
 
 Rebuild your system:
 

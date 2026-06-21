@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Preparing to refactor project versioning.
 - Rename `./templates` to `./examples`.
 - Fit `kmscon` settings to newer version of `nixpkgs`.
 - Make `foot` with Wayland the default instead of `kmscon`.

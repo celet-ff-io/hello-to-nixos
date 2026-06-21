@@ -11,6 +11,7 @@
   networking.hostName = "nixoshost"; # Define your hostname.
 
   # =============
+
   # Options
 
   shell = {
@@ -24,9 +25,13 @@
   # Enable kitty to run shell in Cage in Wayland instead of foot
   # terminal.kitty.enable = true;
 
+  # nix.settings.auto-optimise-store = true;
+
   # =============
 
-  # nix.settings.auto-optimise-store = true;
+  # WSL options
+
+  # wsl.defaultUser = "nixos";
 
   # =============
 

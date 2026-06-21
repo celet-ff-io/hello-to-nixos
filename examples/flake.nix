@@ -82,7 +82,7 @@
           # devspec.desk.hyprland # Hyprland
 
           # Enable ONLY IF you are using WSL
-          # (devspec.wsl "nixos")
+          # devspec.wsl
 
           (common.users "nixos")
           common.basic-software # nvim, zsh, tmux, git and more
