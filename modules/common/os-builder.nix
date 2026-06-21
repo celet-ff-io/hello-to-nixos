@@ -23,6 +23,8 @@ hostPlatform:
     fuse
     fuse3
     jmtpfs
+    sops
+    ssh-to-age
   ];
 
   # Copy the NixOS configuration file and link it from the resulting system
