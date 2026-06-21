@@ -37,11 +37,11 @@ if you want rich features like background image (works as "wallpaper" in Cage)
 
 * [Oh My Zsh](https://ohmyz.sh/) with theme [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
 
-* Zsh plugin [ZSH-VI-MODE](https://github.com/jeffreytse/zsh-vi-mode)
+* `zsh` plugin [ZSH-VI-MODE](https://github.com/jeffreytse/zsh-vi-mode)
 with `jk` as escape key for insert mode
 
-* Zsh with [quitcd](https://github.com/jarun/nnn/blob/master/misc/quitcd/quitcd.bash_sh_zsh)
-of nnn (use with `n` in shell) and `y` for yazi
+* `zsh` with [quitcd](https://github.com/jarun/nnn/blob/master/misc/quitcd/quitcd.bash_sh_zsh)
+of `nnn` (use with `n` in shell) and `y` for yazi
 
 * Alias `to` for `tmux new-session -A -s`
 
@@ -49,9 +49,9 @@ of nnn (use with `n` in shell) and `y` for yazi
 
 #### Other
 
-* Vi-mode zsh and tmux
+* Vi-mode `zsh` and `tmux`
 
-* Nix-channel substituters **forced** to mirrors in *China Mainland*.
+* Nix-channel `substituters` to some mirrors in *China Mainland*.
 
 ## Install
 
@@ -59,8 +59,7 @@ of nnn (use with `n` in shell) and `y` for yazi
 
 2. Backup your current `/etc/nixos/configuration.nix` or `flake.nix`.
 
-3. Clone `common.nix`, and `configuration.nix` (or `flake.nix` if using flakes)
-  from `$HTN/templates/` to `/etc/nixos/`.
+3. Clone `common.nix`, and `flake.nix` from `$HTN/templates/` to `/etc/nixos/`.
   Change the `"/path/to/hello-to-nixos"` in your configuration copied from template
   to the value of `"$HTN"` in shell,
   and **modify your new configuration** according to your backup made in step 2.
@@ -71,11 +70,11 @@ of nnn (use with `n` in shell) and `y` for yazi
   then reboot to apply the changes on boot, terminal and more;  
   If you use NixOS on WSL, then shutdown the instance and start it.
 
-6. Configure oh-my-zsh and p10k following their interactive configurations.
+6. Configure `oh-my-zsh` and `p10k` following their interactive configurations.
 
 ### Example
 
-Install the hello-to-nixos configuration:
+Install the `hello-to-nixos` configuration:
 
 ```bash
 # Clone repository
@@ -90,60 +89,29 @@ cp ./configuration.nix ./configuration.nix.bak
 cp "$HTN/templates/common.nix" ./common.nix
 ```
 
-Install the rest configuration **without flakes**:
-
-```bash
-cp "$HTN/templates/configuration.nix" ./configuration.nix
-# Replace the placeholder path '/path/to/hello-to-nixos' to "$HTN"
-sed -i "s#/path/to/hello-to-nixos#$HTN#" ./configuration.nix
-```
-
-Or **with flakes**:
+Install the rest configuration **with flakes**:
 
 ```bash
 cp "$HTN/templates/flake.nix" ./flake.nix
-# Replace the placeholder path '/path/to/hello-to-nixos' to "$HTN"
-sed -i "s#/path/to/hello-to-nixos#$HTN#" ./flake.nix
 ```
 
 Then modify the `configuration.nix` according to your current NixOS configuration.
 
-Add nix-channel if you are **without flakes**:
+Rebuild your system:
 
 ```bash
-# Flake users may skip this step!
-
-# Check your nix channels
-sudo nix-channel --list
-# You may use channel of nixos stable instead
-sudo nix-channel --add \
-https://mirrors.tuna.tsinghua.edu.cn/nix-channels/nixos-unstable nixos
-# For NixOS-WSL, you may need to check your `nixos-wsl` channel
-```
-
-Rebuild your system **without flakes**:
-
-```bash
-# Rebuild and switch to new OS generation
-# Make sure you have configured `configuration.nix`!
-sudo nixos-rebuild switch --option substituters https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store
-```
-
-Or **with flakes**:
-
-```bash
-sudo nixos-rebuild switch --switch --option substituters https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store
+sudo nixos-rebuild switch --switch --option substituters "https://mirrors.ustc.edu.cn/nix-channels/store"
 ```
 
 After the first success,
-substituters will be set in configuration of this repository,
+`substituters` will be set in configuration of this repository,
 and you do not need to add `--option substituters` anymore.
 
 Once everything is ready, use `sudo reboot` to reboot.
-After your device starts, you should see interface of tuigreet for login.
+After your device starts, you should see interface of `tuigreet` for login.
 
-Configure oh-my-zsh and p10k following their interactive configurations
-after the zsh starts.
+Configure `oh-my-zsh` and `p10k` following their interactive configurations
+after the `zsh` starts.
 
 ## Configuration
 
@@ -154,10 +122,10 @@ just like what you do ordinarily in NixOS.
 
 See *# Options* in [template](template-configuration.nix).
 
-### Configuration not with nix
+### About some configuration not with nix
 
-* For nvim (the `$EDITOR`), I recommend to
-[install](https://www.lazyvim.org/installation) [LazyVim](https://www.lazyvim.org/).
+* For `nvim` (the `$EDITOR`),
+  use [LazyVim](https://www.lazyvim.org/) is recommended.
 
 * If you choose [kitty](https://sw.kovidgoyal.net/kitty/) in `/etc/nixos/configuration.nix`,
 then you

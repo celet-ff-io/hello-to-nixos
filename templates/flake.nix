@@ -2,18 +2,28 @@
   description = "Hello-to-NixOS template configuration";
 
   inputs = {
-    nixpkgs.url = "git+https://mirrors.tuna.tsinghua.edu.cn/git/nixpkgs.git?ref=nixos-unstable&shallow=1";
-    # Or from Githbu:
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # Or from local:
+    # nixpkgs.url = "git+file:///path/to/nixpkgs";
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Required if you are using WSL
-    # nixos-wsl.url = "git+file:///path/to/nixos-wsl";
-    # Or from Github:
-    # nixos-wsl.url = "github:nix-community/NixOS-WSL";
+    # nixos-wsl = {
+    #   url = "github:nix-community/NixOS-WSL";
+    #   inputs.nixpkgs.follow = "nixpkgs";
+    # };
 
-    hello-to-nixos.url = "git+file:///path/to/hello-to-nixos";
-    # Or from Github:
-    # url = "github:celet-ff-io/hello-to-nixos";
+    hello-to-nixos.url = {
+      url = "github:celet-ff-io/hello-to-nixos";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+      sops-nix.follows = "sops-nix";
+    };
   };
 
   outputs =
