@@ -34,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+- Remove the placeholder `./docs/`.
 - Remove legacy `configuration.nix`. Use flakes instead.
 - Remove `docker` (use `podman` instead).
 - Remove `git` group for main user.
