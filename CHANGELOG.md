@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Rename `./templates` to `./examples`.
 - Fit `kmscon` settings to newer version of `nixpkgs`.
 - Make `foot` with Wayland the default instead of `kmscon`.
 - Write greeting message to `/etc/issue`.
@@ -34,7 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-- Remove the placeholder `./docs/`.
+- Remove the placeholder `./docs`.
 - Remove legacy `configuration.nix`. Use flakes instead.
 - Remove `docker` (use `podman` instead).
 - Remove `git` group for main user.

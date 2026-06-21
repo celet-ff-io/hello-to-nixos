@@ -59,7 +59,7 @@ of `nnn` (use with `n` in shell) and `y` for yazi
 
 2. Backup your current `/etc/nixos/configuration.nix` or `flake.nix`.
 
-3. Clone `common.nix`, and `flake.nix` from `$HTN/templates/` to `/etc/nixos/`.
+3. Clone `common.nix`, and `flake.nix` from `$HTN/examples/` to `/etc/nixos/`.
   Change the `"/path/to/hello-to-nixos"` in your configuration copied from template
   to the value of `"$HTN"` in shell,
   and **modify your new configuration** according to your backup made in step 2.
@@ -86,13 +86,13 @@ git clone https://github.com/celet-ff-io/hello-to-nixos.git "$HTN"
 sudo chown -R $(whoami):wheel /etc/nixos
 cd /etc/nixos
 cp ./configuration.nix ./configuration.nix.bak
-cp "$HTN/templates/common.nix" ./common.nix
+cp "$HTN/examples/common.nix" ./common.nix
 ```
 
 Install the rest configuration **with flakes**:
 
 ```bash
-cp "$HTN/templates/flake.nix" ./flake.nix
+cp "$HTN/examples/flake.nix" ./flake.nix
 ```
 
 Then modify the `configuration.nix` according to your current NixOS configuration.
