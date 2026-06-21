@@ -29,6 +29,7 @@
   outputs =
     {
       nixpkgs,
+      sops-nix,
       # nixos-wsl, # Required if you are using WSL
       hello-to-nixos,
       ...
@@ -39,10 +40,11 @@
           ./common.nix
           # And more your own modules
         ]
+        ++ [ sops-nix.nixosModules.sops ]
         #
         # =============================
         # Required if you are using WSL
-        # ++ (with nixos-wsl.nixosModules; [ default ])
+        # ++ [ nixos-wsl.nixosModules.default ]
         # =============================
         #
         # Hello-to-NixOS Modules
