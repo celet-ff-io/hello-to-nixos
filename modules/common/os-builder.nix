@@ -27,6 +27,7 @@ hostPlatform:
     fuse3
     jmtpfs
     sops
+    age
     ssh-to-age
   ];
 
