@@ -32,43 +32,45 @@
 
   # Disk parts
 
-  fileSystems."/" = {
-    # device = "/dev/disk/by-uuid/<uuid>";
-    fsType = "btrfs";
-    options = [
-      "compress=zstd"
-      "noatime"
-      "subvol=@"
-    ];
-  };
+  fileSystems = {
+    "/" = {
+      # device = "/dev/disk/by-uuid/<uuid>";
+      fsType = "btrfs";
+      options = [
+        "compress=zstd"
+        "noatime"
+        "subvol=@"
+      ];
+    };
 
-  fileSystems."/nix" = {
-    # device = "/dev/disk/by-uuid/<uuid>";
-    fsType = "btrfs";
-    options = [
-      "compress=zstd"
-      "noatime"
-      "subvol=@nix"
-    ];
-  };
+    "/nix" = {
+      # device = "/dev/disk/by-uuid/<uuid>";
+      fsType = "btrfs";
+      options = [
+        "compress=zstd"
+        "noatime"
+        "subvol=@nix"
+      ];
+    };
 
-  fileSystems."/home" = {
-    # device = "/dev/disk/by-uuid/<uuid>";
-    fsType = "btrfs";
-    options = [
-      "compress=zstd"
-      "noatime"
-      "subvol=@home"
-    ];
-  };
+    "/home" = {
+      # device = "/dev/disk/by-uuid/<uuid>";
+      fsType = "btrfs";
+      options = [
+        "compress=zstd"
+        "noatime"
+        "subvol=@home"
+      ];
+    };
 
-  fileSystems."/boot" = {
-    # device = "/dev/disk/by-uuid/<uuid>";
-    fsType = "vfat";
-    options = [
-      "fmask=0022"
-      "dmask=0022"
-    ];
+    "/boot" = {
+      # device = "/dev/disk/by-uuid/<uuid>";
+      fsType = "vfat";
+      options = [
+        "fmask=0022"
+        "dmask=0022"
+      ];
+    };
   };
 
   # Swap

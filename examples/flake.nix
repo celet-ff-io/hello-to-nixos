@@ -44,7 +44,7 @@
         #
         # =============================
         # Required if you are using WSL
-        # ++ [ nixos-wsl.nixosModules.default ]
+        # ++ [ nixos-wsl.nixosModules.wsl ]
         # =============================
         #
         # Hello-to-NixOS Modules
