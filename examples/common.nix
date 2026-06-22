@@ -17,7 +17,7 @@
 
   # nix.settings.auto-optimise-store = true;
 
-  # Enable CUPS to print documents.
+  # # Enable CUPS to print documents.
   # services.printing.enable = true;
 
   # =============
@@ -33,8 +33,18 @@
     shell = {
       autoStartTmux = true; # Auto start tmux
 
-      # Before enable the following 'onLogin', do not forget to uncomment 'pkgs' in the function arguments!
+      # # Before enable the following 'onLogin', do not forget to uncomment 'pkgs' in the function arguments!
       # onLogin = "${pkgs.coreutils}/bin/timeout 5s ${pkgs.cmatrix}/bin/cmatrix"; # Run once per login
+    };
+
+    optional = {
+      # # Or use `.enableAll` to enable all of them
+      # browsers.enable = true;
+      # developer.enable = true;
+      # documents.enable = true;
+      # localsend.enable = true;
+      # proxy.enable = true;
+      # sshd.enable = true;
     };
 
     # Should set only when using a real Linux device
@@ -75,7 +85,7 @@
 
   # =============
 
-  # WSL settings
+  # # WSL settings
 
   # wsl = {
   #   enable = true;
