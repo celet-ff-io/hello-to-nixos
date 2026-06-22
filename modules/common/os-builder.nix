@@ -1,7 +1,10 @@
-# OS building deps
-hostPlatform:
-{ lib, pkgs, ... }:
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+lib.mkIf config.htn3.enable {
   nix = {
     settings = {
       experimental-features = [
@@ -17,10 +20,12 @@ hostPlatform:
     optimise.automatic = true;
     gc.automatic = true;
   };
-
   nixpkgs.config.allowUnfree = true;
-  programs.nix-ld.enable = true;
-  programs.git.enable = true;
+
+  programs = {
+    nix-ld.enable = true;
+    git.enable = true;
+  };
 
   environment.systemPackages = with pkgs; [
     fuse
@@ -39,6 +44,4 @@ hostPlatform:
   # (/run/current-system/configuration.nix). This is useful in case you
   # accidentally delete configuration.nix.
   # system.copySystemConfiguration = true;
-
-  nixpkgs.hostPlatform = lib.mkDefault hostPlatform;
 }

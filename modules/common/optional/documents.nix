@@ -1,23 +1,18 @@
-# Documents
-{ config, pkgs, ... }:
 {
-  # List packages installed in system profile.
-  # You can use https://search.nixos.org/ to find more packages (and options).
-  environment.systemPackages =
-    with pkgs;
-    [
-      chafa
-      imagemagick
-      nb
-      zk
-    ]
-    ++ (
-      if config.hasGui then
-        [
-          libreoffice-qt-fresh
-          gimp-with-plugins
-        ]
-      else
-        [ ]
-    );
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.htn3.optional.documents;
+in
+lib.mkIf (config.htn3.enable && cfg.enable) {
+  environment.systemPackages = with pkgs; [
+    chafa
+    imagemagick
+    ghostscript
+    nb
+    zk
+  ];
 }

@@ -1,14 +1,15 @@
-# Browsers
-{ config, lib, pkgs, ... }: {
-  programs.zsh = { ohMyZsh = { plugins = [ "web-search" ]; }; };
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-  programs.firefox.enable = config.hasGui;
+let
+  cfg = config.htn3.optional.browsers;
+in
+lib.mkIf (config.htn3.enable && cfg.enable) {
+  programs.zsh.ohMyZsh.plugins = [ "web-search" ];
 
-  # List packages installed in system profile.
-  # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [ w3m ];
-
-  environment.sessionVariables = {
-    BROWSER = lib.mkDefault (if config.hasGui then "firefox" else "w3m");
-  };
 }

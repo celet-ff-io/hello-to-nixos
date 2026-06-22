@@ -8,30 +8,79 @@
   ...
 }:
 {
+  # Host name should be same to the one defined in `flake.nix` for this machine
   networking.hostName = "nixoshost"; # Define your hostname.
+  nixpkgs.hostPlatform = "x86_64-linux";
 
-  # =============
-
-  # Options
-
-  shell = {
-    autoStartTmux = true; # Auto start tmux
-    # Before enable the following 'onLogin', do not forget to uncomment 'pkgs' in the function arguments!
-    # onLogin = "${pkgs.coreutils}/bin/timeout 5s ${pkgs.cmatrix}/bin/cmatrix"; # Run once per login
-  };
-  # tuigreet.greeting = "> Hello to NixOS <"; # Customize with your own ASCII art!
-  # terminal.font-size = 13;
-
-  # Enable kitty to run shell in Cage in Wayland instead of foot
-  # terminal.kitty.enable = true;
+  # Set your time zone.
+  time.timeZone = "Asia/Shanghai";
 
   # nix.settings.auto-optimise-store = true;
 
+  # Enable CUPS to print documents.
+  # services.printing.enable = true;
+
   # =============
 
-  # WSL options
+  # HTN3 Options
 
-  # wsl.defaultUser = "nixos";
+  htn3 = {
+    enable = true;
+
+    # Define a user account. Don't forget to set a password with ‘passwd’.
+    wheelUsers.list = [ "nixos" ];
+
+    shell = {
+      autoStartTmux = true; # Auto start tmux
+
+      # Before enable the following 'onLogin', do not forget to uncomment 'pkgs' in the function arguments!
+      # onLogin = "${pkgs.coreutils}/bin/timeout 5s ${pkgs.cmatrix}/bin/cmatrix"; # Run once per login
+    };
+
+    # Should set only when using a real Linux device
+    device = {
+      terminal = {
+        font-size = 13;
+        useKitty = true; # Enable kitty to run shell in Cage in Wayland instead of foot
+      };
+
+      hyprland.enable = true; # Enable Hyprland desktop
+
+      # fprint.enable = true; # Enable fprintd
+      luks = {
+        enable = true;
+        devices = [
+          {
+            provides = "luksDevice0";
+            on = "/dev/disk/by-uuid/<uuid>";
+          }
+        ];
+      };
+      battery.enable = true; # Enable battery features
+      # virtualisation.enable = true; # Enable virtualisation (QEMU)
+
+      hw = {
+        wirelessAdapter.enable = true; # Enable wireless adapter support
+        thunderbolt.enable = true; # Enable Thunderbolt support
+        i2c.enable = true; # Enable I2C support
+        cpu.amd.enable = true; # Enable kvm-amd
+        # cpu.intel.enable = true; # Enable kvm-intel
+        gpu.amd.enable = true; # Enable amdgpu
+        # gpu.intel.enable = true; # Enable i915
+        # gpu.nvidia.enable = true; # Enable nvidia
+        # gpu.nvidia.forceUnload = true; # Fully disable nvidia if you have hybrid graphics
+      };
+    };
+  };
+
+  # =============
+
+  # WSL settings
+
+  # wsl = {
+  #   enable = true;
+  #   defaultUser = "nixos";
+  # };
 
   # =============
 

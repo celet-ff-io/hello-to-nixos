@@ -1,4 +1,3 @@
-# Terminal settings
 {
   config,
   lib,
@@ -7,65 +6,64 @@
 }:
 let
   inherit (lib)
-    mkDefault
-    mkEnableOption
     mkIf
-    mkMerge
     mkOption
     types
     ;
+  cfg = config.htn3.device.terminal;
 in
 {
-  options = {
-    terminal = {
-      font-size = mkOption {
-        type = types.int;
-        default = 13;
-        description = "Font size for terminal emulators.";
-      };
-      kitty.enable = mkEnableOption "Use Kitty.";
+  options.htn3.device.terminal = {
+    font-size = mkOption {
+      type = types.int;
+      default = 13;
+      description = "Font size for terminal emulators.";
+    };
+
+    useKitty = lib.mkEnableOption ''
+      Set this to true to use kitty instead of foot when no desktop.
+    '';
+
+    startCommand = mkOption {
+      type = types.str;
+      default = if cfg.useKitty then "${pkgs.kitty}/bin/kitty" else "${pkgs.foot}/bin/foot";
+      description = "Default terminal emulator to use when no desktop environment.";
     };
   };
 
-  config = mkMerge [
+  config = mkIf (with config.htn3; (enable && device.enable)) (
     {
       console = {
         font = "Lat2-Terminus16";
         keyMap = "us";
       };
 
-      fonts.packages = with pkgs; [ nerd-fonts.jetbrains-mono ];
-
       services.kmscon = {
         enable = true;
         config = {
-          inherit (config.terminal) font-size;
+          inherit (cfg) font-size;
           font-name = "JetBrainsMono Nerd Font Mono";
           hwaccel = true;
         };
       };
 
-      # hardware graphics and nerd-fonts jetbrains-mono have been enabled by kmscon
+      htn3.device.gui.enable = lib.mkDefault true;
 
-      # Enable foot by `programs.foot.enable`
       programs.foot = {
         enable = true;
         enableZshIntegration = config.programs.zsh.enable;
         settings = {
           main = {
-            font = "JetBrainsMono Nerd Font Mono:size=${toString config.terminal.font-size}";
+            font = "JetBrainsMono Nerd Font Mono:size=${lib.toString cfg.font-size}";
           };
           colors = {
             background = "000000";
           };
         };
       };
-
-      environment.systemPackages = with pkgs; mkIf config.terminal.kitty.enable [ kitty ];
     }
-
-    (mkIf (with config; programs.foot.enable || terminal.kitty.enable) {
-      hasGui = mkDefault true;
-    })
-  ];
+    // mkIf cfg.useKitty {
+      environment.systemPackages = with pkgs; [ kitty ];
+    }
+  );
 }

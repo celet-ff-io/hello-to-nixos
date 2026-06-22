@@ -58,7 +58,7 @@ of `nnn` (use with `n` in shell) and `y` for yazi
 2. Backup your current `/etc/nixos/configuration.nix` or `flake.nix`.
 
 3. Clone `common.nix`, and `flake.nix` from `$HTN/examples/` to `/etc/nixos/`.
-  Change the `"/path/to/hello-to-nixos"` in your configuration copied from template
+  Change the `"/path/to/hello-to-nixos"` in your configuration copied from example
   to the value of `"$HTN"` in shell,
   and **modify your new configuration** according to your backup made in step 2.
 
@@ -116,9 +116,9 @@ after the `zsh` starts.
 You configure it mainly in the `/etc/nixos` directory
 just like what you do ordinarily in NixOS.
 
-### Extra configuration with nix
+### Hello-to-NixOS configuration with nix
 
-See *# Options* in [template](template-configuration.nix).
+See *# Options* in the [example common configuration](./examples/common.nix).
 
 ### About some configuration not with nix
 

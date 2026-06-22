@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Name main module to `htn3`.
+- Add `ghostscript`.
 - Add `sops`.
 - Add utilities for screenshots.
 - Add `protobuf` and `buf`.
@@ -22,7 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Preparing to refactor project versioning.
+- Refactor all.
 - Rename `./templates` to `./examples`.
 - Fit `kmscon` settings to newer version of `nixpkgs`.
 - Make `foot` with Wayland the default instead of `kmscon`.

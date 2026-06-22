@@ -1,4 +1,3 @@
-# Greeter settings
 {
   config,
   lib,
@@ -9,13 +8,14 @@ let
   inherit (lib) mkIf mkOption types;
 in
 {
-  options = {
-    greeting = {
+  options.htn3.device.greeting = {
+    issue = {
       enable = mkOption {
         type = types.bool;
         default = true;
         description = "Set this to overwrite the /etc/issue file with the greeting text.";
       };
+
       text = mkOption {
         type = types.lines;
         default = ''
@@ -44,30 +44,30 @@ in
           v                                                                          ^
           >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>^
         '';
-        description = "Greeting text";
+        description = "Greeting text.";
       };
     };
   };
-  config = {
-    environment.etc."issue" = mkIf config.greeting.enable {
-      inherit (config.greeting) text;
-    };
-    services.greetd = {
-      enable = true;
-      settings = {
-        default_session = {
+
+  config =
+    let
+      cfg = config.htn3.device.greeting;
+    in
+    lib.mkIf (with config.htn3; (enable && device.enable)) {
+      environment.etc."issue" = mkIf cfg.issue.enable {
+        inherit (cfg.issue) text;
+      };
+      services.greetd = {
+        enable = true;
+        settings.default_session = {
+          user = "greeter";
           command =
             let
               tuigreetCmd =
-                if config.programs.hyprland.enable then
-                  # Hyprland
+                if config.htn3.device.hyprland.enable then
                   "start-hyprland"
-                else if config.terminal.kitty.enable then
-                  # kitty
-                  "${pkgs.cage}/bin/cage -- ${pkgs.kitty}/bin/kitty"
                 else
-                  # foot
-                  "${pkgs.cage}/bin/cage -- ${pkgs.foot}/bin/foot";
+                  "${pkgs.cage}/bin/cage -- ${config.htn3.device.terminal.startCommand}";
               greetdCmdMultiline = ''
                 ${pkgs.tuigreet}/bin/tuigreet
                 --issue
@@ -79,9 +79,7 @@ in
               '';
             in
             lib.concatStringsSep " " (lib.splitString "\n" greetdCmdMultiline);
-          user = "greeter";
         };
       };
     };
-  };
 }

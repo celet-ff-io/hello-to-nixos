@@ -1,11 +1,11 @@
 { ... }:
 {
   imports = [
-    ./developer.nix
-    ./ssh.nix
     ./browsers.nix
-    ./proxy.nix
+    ./developer.nix
     ./documents.nix
     ./localsend.nix
+    ./proxy.nix
+    ./sshd.nix
   ];
 }

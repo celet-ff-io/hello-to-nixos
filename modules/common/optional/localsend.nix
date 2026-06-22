@@ -1,5 +1,13 @@
-# LocalSend
-{ pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.htn3.optional.localsend;
+in
+lib.mkIf (config.htn3.enable && cfg.enable) {
   environment.systemPackages = with pkgs; [ localsend ];
 
   networking.firewall = {
@@ -16,4 +24,3 @@
     };
   };
 }
-
