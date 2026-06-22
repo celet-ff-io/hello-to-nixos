@@ -17,7 +17,7 @@
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
 
-    hello-to-nixos.url = {
+    hello-to-nixos = {
       url = "github:celet-ff-io/hello-to-nixos";
       inputs = {
         nixpkgs.follows = "nixpkgs";
