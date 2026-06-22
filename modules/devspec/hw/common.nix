@@ -5,6 +5,8 @@
   ...
 }:
 lib.mkIf (with config.htn3; (enable && device.enable)) {
+  hardware.enableAllFirmware = true;
+
   boot.initrd.availableKernelModules = [
     "ahci"
     "nvme"

@@ -12,8 +12,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Name main module to `htn3`.
-- Add `ghostscript`.
+- Enable all firmware.
 - Add `sops`.
+- Add `ghostscript`.
 - Add `bluetuith` and `overskride`.
 - Add utilities for screenshots.
 - Add `protobuf` and `buf`.
