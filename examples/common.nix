@@ -50,6 +50,8 @@
 
     # Should set only when using a real Linux device
     device = {
+      enable = true;
+
       terminal = {
         font-size = 13;
         useKitty = true; # Enable kitty to run shell in Cage in Wayland instead of foot
