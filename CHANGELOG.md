@@ -9,9 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## 3.0.0 - 2026-06-22
+
 ### Added
 
-- Name main module to `htn3`.
+- **Name main module to `htn3`.**
 - Enable all firmware.
 - Add `sops`.
 - Add `ghostscript`.
@@ -26,7 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Refactor all.
+- **Refactor all.**
 - Change the alias `rebuild` to `sudorebs`
   for `sudo nixos-rebuild switch` with flake.
 - Rename `./templates` to `./examples`.
