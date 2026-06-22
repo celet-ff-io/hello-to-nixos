@@ -12,6 +12,7 @@
   networking.hostName = "nixoshost"; # Define your hostname.
   nixpkgs.hostPlatform = "x86_64-linux";
 
+  i18n.defaultLocale = "zh_CN.UTF-8";
   # Set your time zone.
   time.timeZone = "Asia/Shanghai";
 
