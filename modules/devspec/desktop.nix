@@ -18,6 +18,8 @@
       cfg = config.htn3.device.desktop;
     in
     lib.mkIf (with config.htn3; (enable && device.enable) && cfg.enable) {
+      xdg.portal.enable = true;
+
       i18n.inputMethod = {
         enable = true;
         type = "fcitx5";

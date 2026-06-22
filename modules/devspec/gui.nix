@@ -28,8 +28,6 @@ in
       services.xserver.xkb.layout = "us";
       # services.xserver.xkb.options = "eurosign:e,caps:escape";
 
-      xdg.portal.enable = true;
-
       services.dbus.enable = true;
 
       security.polkit.enable = true;

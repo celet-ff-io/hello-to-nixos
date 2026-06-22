@@ -17,6 +17,12 @@ for versions under 3.0.0.
 
 ## 3.0.2 - 2026-06-22
 
+### Fixed
+
+- Move `xdg.portal` to `desktop.nix`.
+
+## 3.0.2 - 2026-06-22
+
 ### Changed
 
 - Change project versioning style.
