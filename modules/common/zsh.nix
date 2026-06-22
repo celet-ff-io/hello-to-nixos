@@ -73,7 +73,7 @@ in
           interactiveAliases = ''
             # Alias only for interactive users
             alias to='tmux new-session -A -s'
-            alias rebs='nixos-rebuild switch'
+            alias rebs='nixos-rebuild switch --flake'
           '';
           startupScript =
             let

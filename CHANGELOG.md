@@ -25,7 +25,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Refactor all.
-- Change the alias `rebuild` to `sudo rebs` for `sudo nixos-rebuild switch`.
+- Change the alias `rebuild` to `sudo rebs`
+  for `sudo nixos-rebuild switch` with flake.
 - Rename `./templates` to `./examples`.
 - Fit `kmscon` settings to newer version of `nixpkgs`.
 - Make `foot` with Wayland the default instead of `kmscon`.
