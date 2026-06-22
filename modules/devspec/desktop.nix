@@ -29,5 +29,21 @@
           fcitx5-lua
         ];
       };
+
+      environment.systemPackages = with pkgs; [
+        kdePackages.dolphin
+        kdePackages.qt6ct
+        libsForQt5.qt5ct
+
+        rofi
+        waybar
+        mako
+        wayshot
+        grim
+        slurp
+        pavucontrol
+        nwg-look
+        wl-clipboard
+      ];
     };
 }

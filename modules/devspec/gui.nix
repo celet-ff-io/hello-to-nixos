@@ -30,12 +30,14 @@ in
 
         security.polkit.enable = true;
 
-        environment.sessionVariables = {
-          QT_QPA_PLATFORM = "wayland";
-          QT_QPA_PLATFORMTHEME = "qt6ct";
-          NIXOS_OZONE_WL = "1";
+        environment = {
+          systemPackages = with pkgs; [ zed-editor ];
+          sessionVariables = {
+            QT_QPA_PLATFORM = "wayland";
+            QT_QPA_PLATFORMTHEME = "qt6ct";
+            NIXOS_OZONE_WL = "1";
+          };
         };
-
       }
       // mkIf config.htn3.optional.browsers.enable {
         programs.firefox.enable = true;

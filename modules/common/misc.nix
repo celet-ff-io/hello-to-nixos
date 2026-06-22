@@ -36,71 +36,41 @@ mkIf cfg.enable {
 
     # List packages installed in system profile.
     # You can use https://search.nixos.org/ to find more packages (and options).
-    systemPackages =
-      with pkgs;
-      [
-        fastfetch
-        file
-        tree
-        duf
-        dust
-        htop
-        bottom
-        btop
-        psmisc
-        procs
+    systemPackages = with pkgs; [
+      fastfetch
+      file
+      tree
+      duf
+      dust
+      htop
+      bottom
+      btop
+      psmisc
+      procs
 
-        trash-cli
-        wget
-        curl
-        zip
-        unzip
-        gnupg
-        git-crypt
-        openssl
-        openssh
-        appimage-run
+      trash-cli
+      wget
+      curl
+      zip
+      unzip
+      gnupg
+      git-crypt
+      openssl
+      openssh
+      appimage-run
 
-        bat
-        eza
-        ripgrep
-        fd
-        fzf
-        jq
+      bat
+      eza
+      ripgrep
+      fd
+      fzf
+      jq
 
-        lazygit
-        (nnn.override { withNerdIcons = true; })
-        yazi
-        neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-      ]
-      ++ (
-        if cfg.installGuiApplications then
-          [
-            zed-editor
-          ]
-        else
-          [ ]
-      )
-      ++ (
-        if cfg.installDesktopApplications then
-          [
-            kdePackages.dolphin
-            kdePackages.qt6ct
-            libsForQt5.qt5ct
-
-            rofi
-            waybar
-            mako
-            wayshot
-            grim
-            slurp
-            pavucontrol
-            nwg-look
-            wl-clipboard
-          ]
-        else
-          [ ]
-      );
+      lazygit
+      (nnn.override { withNerdIcons = true; })
+      yazi
+      neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    ];
 
     sessionVariables = {
       EDITOR = lib.mkDefault "nvim";
