@@ -55,8 +55,5 @@ in
       // mkIf config.htn3.optional.proxy.enable {
         environment.systemPackages = with pkgs; [ flclash ];
       }
-      // mkIf config.htn3.device.hw.wireless-adapter.enable {
-        services.blueman.enable = true;
-      }
     );
 }

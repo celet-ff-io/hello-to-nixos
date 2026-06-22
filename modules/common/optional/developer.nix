@@ -75,6 +75,8 @@ lib.mkIf (config.htn3.enable && cfg.enable) {
       RUST_SRC_PATH = "${pkgs.rustPlatform.rustLibSrc}";
       CARGO_TARGET_DIR = "$HOME/.cache/cargo-target";
       CARGO_INSTALL_ROOT = "$HOME/.local";
+
+      DOCKER_HOST = "unix:///run/user/\${UID}/podman/podman.sock";
     };
   };
 
