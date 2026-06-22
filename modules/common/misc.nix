@@ -25,6 +25,7 @@ mkIf cfg.enable {
     localBinInPath = true;
 
     shellAliases = {
+      rebs = "nixos-rebuild switch --flake";
       edit = "$EDITOR";
       ls = "eza --icons=auto";
       ll = "eza --icons=auto -l";
