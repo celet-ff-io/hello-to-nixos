@@ -24,10 +24,9 @@ let
         full) printf "#[bg=green] 󰖟 #[default]" ;;
         limited) printf "#[bg=yellow] !󰖟 #[default]" ;;
         none|"") printf "#[bg=red] X󰖟 #[default]" ;;
-        *) printf "󰖟=$state" ;;
+        *) printf "󰖟=%s" "$state" ;;
       esac
     '';
-    destination = "/bin/tmux-connectivity-status";
   };
 in
 {
