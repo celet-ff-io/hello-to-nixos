@@ -14,15 +14,15 @@
     # Required if you are using WSL
     # nixos-wsl = {
     #   url = "github:nix-community/NixOS-WSL";
-    #   inputs.nixpkgs.follow = "nixpkgs";
+    #   inputs.nixpkgs.follows = "nixpkgs";
     # };
 
     hello-to-nixos.url = {
       url = "github:celet-ff-io/hello-to-nixos";
       inputs = {
         nixpkgs.follows = "nixpkgs";
+        sops-nix.follows = "sops-nix";
       };
-      sops-nix.follows = "sops-nix";
     };
   };
 
