@@ -31,39 +31,40 @@ in
     };
   };
 
-  config = mkIf (with config.htn3; (enable && device.enable)) (
-    {
-      console = {
-        font = "Lat2-Terminus16";
-        keyMap = "us";
-      };
+  config = mkIf (with config.htn3; (enable && device.enable)) {
+    console = {
+      font = "Lat2-Terminus16";
+      keyMap = "us";
+    };
 
-      services.kmscon = {
-        enable = true;
-        config = {
-          inherit (cfg) font-size;
-          font-name = "JetBrainsMono Nerd Font Mono";
-          hwaccel = true;
+    services.kmscon = {
+      enable = true;
+      config = {
+        inherit (cfg) font-size;
+        font-name = "JetBrainsMono Nerd Font Mono";
+        hwaccel = true;
+      };
+    };
+
+    htn3.device.gui.enable = lib.mkDefault true;
+
+    programs.foot = {
+      enable = true;
+      enableZshIntegration = config.programs.zsh.enable;
+      settings = {
+        main = {
+          font = "JetBrainsMono Nerd Font Mono:size=${lib.toString cfg.font-size}";
+        };
+        colors = {
+          background = "000000";
         };
       };
+    };
 
-      htn3.device.gui.enable = lib.mkDefault true;
-
-      programs.foot = {
-        enable = true;
-        enableZshIntegration = config.programs.zsh.enable;
-        settings = {
-          main = {
-            font = "JetBrainsMono Nerd Font Mono:size=${lib.toString cfg.font-size}";
-          };
-          colors = {
-            background = "000000";
-          };
-        };
-      };
-    }
-    // mkIf cfg.useKitty {
-      environment.systemPackages = with pkgs; [ kitty ];
-    }
-  );
+    environment = mkIf cfg.useKitty {
+      systemPackages = with pkgs; [
+        kitty
+      ];
+    };
+  };
 }

@@ -6,7 +6,6 @@
 }:
 let
   inherit (lib) mkIf;
-  cfg = config.htn3.device.hw.wirelessAdapter;
 in
 {
   options.htn3.device.hw.wirelessAdapter = {
@@ -15,8 +14,13 @@ in
     '';
   };
 
-  config = mkIf (with config.htn3; (enable && device.enable) && cfg.enable) (
-    {
+  config =
+    let
+      devCfg = config.htn3.device;
+      cfg = devCfg.hw.wirelessAdapter;
+      guiEnable = devCfg.gui.enable;
+    in
+    mkIf (with config.htn3; (enable && device.enable) && cfg.enable) {
       boot.kernelModules = [
         "iwlwifi"
         "btusb"
@@ -30,16 +34,20 @@ in
       # Configure network connections interactively with nmcli or nmtui.
       networking.networkmanager.enable = true;
 
-      environment.systemPackages = with pkgs; [
-        wifitui
-        bluetuith
+      services = mkIf guiEnable { blueman.enable = true; };
+
+      environment = lib.mkMerge [
+        {
+          systemPackages = with pkgs; [
+            wifitui
+            bluetuith
+          ];
+        }
+        (mkIf guiEnable {
+          systemPackages = with pkgs; [
+            overskride
+          ];
+        })
       ];
-    }
-    // mkIf config.htn3.device.gui.enable {
-      services.blueman.enable = true;
-      environment.systemPackages = with pkgs; [
-        overskride
-      ];
-    }
-  );
+    };
 }

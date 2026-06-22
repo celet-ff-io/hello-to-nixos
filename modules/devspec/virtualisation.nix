@@ -4,6 +4,11 @@
   pkgs,
   ...
 }:
+let
+  inherit (lib)
+    mkIf
+    ;
+in
 {
   options.htn3.device.virtualisation = {
     enable = lib.mkEnableOption ''
@@ -13,34 +18,34 @@
 
   config =
     let
-      cfg = config.htn3.device.virtualisation;
+      devCfg = config.htn3.device;
+      cfg = devCfg.virtualisation;
     in
-    lib.mkIf (with config.htn3; (enable && device.enable) && cfg.enable) (
-      {
-        boot.kernelModules = [
-          "vfio"
-          "vfio_pci"
-          "vfio_iommu_type1"
-        ];
+    mkIf (with config.htn3; (enable && device.enable) && cfg.enable) ({
+      boot.kernelModules = [
+        "vfio"
+        "vfio_pci"
+        "vfio_iommu_type1"
+      ];
 
-        environment.systemPackages = with pkgs; [ virtiofsd ];
-
-        virtualisation.libvirtd = {
-          enable = true;
-          qemu = {
-            package = pkgs.qemu_full.override {
-              cephSupport = false;
-            };
-            swtpm.enable = true;
-            verbatimConfig = ''
-              namespaces = []
-              seccomp_sandbox = 0
-            '';
+      virtualisation.libvirtd = {
+        enable = true;
+        qemu = {
+          package = pkgs.qemu_full.override {
+            cephSupport = false;
           };
+          swtpm.enable = true;
+          verbatimConfig = ''
+            namespaces = []
+            seccomp_sandbox = 0
+          '';
         };
-      }
-      // lib.mkIf config.htn3.device.gui.enable {
-        programs.virt-manager.enable = true;
-      }
-    );
+      };
+
+      programs = mkIf devCfg.gui.enable {
+        virt-manager.enable = true;
+      };
+
+      environment.systemPackages = with pkgs; [ virtiofsd ];
+    });
 }

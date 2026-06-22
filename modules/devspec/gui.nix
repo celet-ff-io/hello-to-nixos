@@ -5,7 +5,9 @@
   ...
 }:
 let
-  inherit (lib) mkIf;
+  inherit (lib)
+    mkIf
+    ;
 in
 {
   options.htn3.device.gui = {
@@ -16,44 +18,50 @@ in
 
   config =
     let
-      cfg = config.htn3.device.gui;
+      htn3Cfg = config.htn3;
+      optCfg = htn3Cfg.optional;
+      optBrowsersEnable = optCfg.browsers.enable;
+      cfg = htn3Cfg.device.gui;
     in
-    mkIf (with config.htn3; (enable && device.enable) && cfg.enable) (
-      {
-        # Configure keymap in X11
-        services.xserver.xkb.layout = "us";
-        # services.xserver.xkb.options = "eurosign:e,caps:escape";
+    mkIf (with htn3Cfg; (enable && device.enable) && cfg.enable) {
+      # Configure keymap in X11
+      services.xserver.xkb.layout = "us";
+      # services.xserver.xkb.options = "eurosign:e,caps:escape";
 
-        xdg.portal.enable = true;
+      xdg.portal.enable = true;
 
-        services.dbus.enable = true;
+      services.dbus.enable = true;
 
-        security.polkit.enable = true;
+      security.polkit.enable = true;
 
-        environment = {
+      programs = mkIf optBrowsersEnable {
+        firefox.enable = true;
+      };
+      environment = lib.mkMerge [
+        {
           systemPackages = with pkgs; [ zed-editor ];
           sessionVariables = {
             QT_QPA_PLATFORM = "wayland";
             QT_QPA_PLATFORMTHEME = "qt6ct";
             NIXOS_OZONE_WL = "1";
           };
-        };
-      }
-      // mkIf config.htn3.optional.browsers.enable {
-        programs.firefox.enable = true;
-
-        environment.sessionVariables = {
-          BROWSER = lib.mkDefault "firefox";
-        };
-      }
-      // mkIf config.htn3.optional.documents.enable {
-        environment.systemPackages = with pkgs; [
-          libreoffice-qt-fresh
-          gimp-with-plugins
-        ];
-      }
-      // mkIf config.htn3.optional.proxy.enable {
-        environment.systemPackages = with pkgs; [ flclash ];
-      }
-    );
+        }
+        (mkIf optBrowsersEnable {
+          sessionVariables = {
+            BROWSER = lib.mkDefault "firefox";
+          };
+        })
+        (mkIf optCfg.documents.enable {
+          systemPackages = with pkgs; [
+            libreoffice-qt-fresh
+            gimp-with-plugins
+          ];
+        })
+        (mkIf optCfg.proxy.enable {
+          systemPackages = with pkgs; [
+            flclash
+          ];
+        })
+      ];
+    };
 }
