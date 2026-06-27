@@ -15,7 +15,7 @@ for versions under 3.0.0.
 
 ## [Unreleased]
 
-## 3.0.2 - 2026-06-22
+## 3.0.3 - 2026-06-27
 
 ### Fixed
 
