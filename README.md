@@ -2,6 +2,10 @@
 
 NixOS configuration designed for myself.
 
+If you want to use it,
+please use your own fork of this repository,
+for your habits and safety.
+
 ## Properties
 
 ### Programs mainly included

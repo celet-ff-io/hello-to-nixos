@@ -18,7 +18,7 @@
     # };
 
     hello-to-nixos = {
-      url = "github:celet-ff-io/hello-to-nixos";
+      url = "github:your-name/your-fork-of-hello-to-nixos";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         sops-nix.follows = "sops-nix";
