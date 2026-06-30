@@ -15,15 +15,21 @@ for versions under 3.0.0.
 
 ## [Unreleased]
 
+## 3.1.0 - 2026-06-30
+
+### Changed
+
+- Move `$CARGO_TARGET_DIR` from `$HOME/.cache/cargo-target/` to `$HOME/.cache/cargo`.
+
 ## 3.0.4 - 2026-06-29
-
-### Added
-
-- Add usage hint.
 
 ### Changed
 
 - Change URL for flake input in `./examples/flake.nix`.
+
+### Security
+
+- Add usage hint.
 
 ## 3.0.3 - 2026-06-27
 
