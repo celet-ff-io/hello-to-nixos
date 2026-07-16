@@ -46,6 +46,13 @@ in
         virt-manager.enable = true;
       };
 
-      environment.systemPackages = with pkgs; [ virtiofsd ];
+      environment = lib.mkMerge [
+        {
+          systemPackages = with pkgs; [ virtiofsd ];
+        }
+        (mkIf devCfg.gui.enable {
+          systemPackages = with pkgs; [ virt-viewer ];
+        })
+      ];
     });
 }

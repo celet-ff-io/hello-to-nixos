@@ -15,6 +15,12 @@ for versions under 3.0.0.
 
 ## [Unreleased]
 
+## 3.2.0 - 2026-07-16
+
+### Added
+
+- Add `virt-viewer`.
+
 ## 3.1.0 - 2026-06-30
 
 ### Changed
