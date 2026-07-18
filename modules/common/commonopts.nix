@@ -8,6 +8,7 @@ let
     mkDefault
     mkEnableOption
     mkIf
+    mkOption
     ;
 in
 {
@@ -21,7 +22,17 @@ in
       developer.enable = mkEnableOption "Enable developer configuration.";
       documents.enable = mkEnableOption "Enable documents configuration.";
       localsend.enable = mkEnableOption "Enable localsend configuration.";
-      proxy.enable = mkEnableOption "Enable proxy configuration.";
+      proxy = {
+        enable = mkEnableOption "Enable proxy configuration.";
+        mihomo = {
+          enable = mkEnableOption "Enable Mihomo service with TUN.";
+          configFile = mkOption {
+            type = lib.types.path;
+            description = "Path to Mihomo configuration file.";
+          };
+        };
+        enableFlClash = mkEnableOption "Enable FlClash.";
+      };
       sshd.enable = mkEnableOption "Enable sshd configuration.";
     };
   };

@@ -45,7 +45,10 @@
       # developer.enable = true;
       # documents.enable = true;
       # localsend.enable = true;
-      # proxy.enable = true;
+      # proxy = {
+      #   enable = true;
+      #   enableFlClash = true;
+      # };
       # sshd.enable = true;
     };
 

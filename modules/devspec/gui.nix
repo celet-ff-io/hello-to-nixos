@@ -55,11 +55,6 @@ in
             gimp-with-plugins
           ];
         })
-        (mkIf optCfg.proxy.enable {
-          systemPackages = with pkgs; [
-            flclash
-          ];
-        })
       ];
     };
 }

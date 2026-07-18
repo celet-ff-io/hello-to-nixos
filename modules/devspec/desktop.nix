@@ -4,6 +4,11 @@
   pkgs,
   ...
 }:
+let
+  inherit (lib)
+    mkIf
+    ;
+in
 {
   options.htn3.device.desktop = {
     enable = lib.mkEnableOption ''
@@ -15,9 +20,10 @@
 
   config =
     let
-      cfg = config.htn3.device.desktop;
+      htn3Cfg = config.htn3;
+      cfg = htn3Cfg.device.desktop;
     in
-    lib.mkIf (with config.htn3; (enable && device.enable) && cfg.enable) {
+    mkIf (with htn3Cfg; (enable && device.enable) && cfg.enable) {
       xdg.portal.enable = true;
 
       i18n.inputMethod = {
@@ -32,20 +38,29 @@
         ];
       };
 
-      environment.systemPackages = with pkgs; [
-        kdePackages.dolphin
-        kdePackages.qt6ct
-        libsForQt5.qt5ct
+      environment = lib.mkMerge [
+        {
+          systemPackages = with pkgs; [
+            kdePackages.dolphin
+            kdePackages.qt6ct
+            libsForQt5.qt5ct
 
-        rofi
-        waybar
-        mako
-        wayshot
-        grim
-        slurp
-        pavucontrol
-        nwg-look
-        wl-clipboard
+            rofi
+            waybar
+            mako
+            wayshot
+            grim
+            slurp
+            pavucontrol
+            nwg-look
+            wl-clipboard
+          ];
+        }
+        (mkIf (with htn3Cfg.optional.proxy; enable && enableFlClash) {
+          systemPackages = with pkgs; [
+            flclash
+          ];
+        })
       ];
     };
 }

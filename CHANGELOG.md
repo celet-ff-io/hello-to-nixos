@@ -15,6 +15,15 @@ for versions under 3.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- `mihomo` service for TUN proxies.
+
+### Changed
+
+- **Breaking:** You need to enable `htn3.optional.proxy.enableFlClash`
+  to enable `FlClash` now.
+
 ## 3.2.0 - 2026-07-16
 
 ### Added
