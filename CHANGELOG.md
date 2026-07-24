@@ -18,6 +18,8 @@ for versions under 3.0.0.
 ### Added
 
 - `mihomo` service for TUN proxies.
+- **Breaking:** You need to set `htn3.device.hw.gpu.nvidia.cudaCapabilities`
+  if enabling NVIDIA GPU now.
 
 ### Changed
 

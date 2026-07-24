@@ -8,6 +8,7 @@ let
   inherit (lib)
     mkEnableOption
     mkIf
+    types
     ;
 in
 {
@@ -18,6 +19,15 @@ in
     forceUnload = mkEnableOption ''
       Set this to true to force not using Nvidia GPU.
     '';
+    cudaCapabilities = lib.mkOption {
+      type = types.nullOr (types.listOf types.str);
+      default = null;
+      description = ''
+        List of CUDA capabilities to enable. See the NVIDIA documentation for a list of valid capabilities.
+        Must be specified instead of null.
+      '';
+      example = [ "8.9" ];
+    };
   };
 
   config =
@@ -25,9 +35,19 @@ in
       cfg = config.htn3.device.hw.gpu.nvidia;
     in
     mkIf (with config.htn3; (enable && device.enable) && cfg.enable) {
-      nixpkgs.config.cudaSupport = true;
+      assertions = [
+        {
+          assertion = cfg.enable && (cfg.forceUnload || cfg.cudaCapabilities != null);
+          message = "CUDA capabilities must be specified to avoid redundant builds.";
+        }
+      ];
+      nixpkgs.config = mkIf (!cfg.forceUnload) {
+        cudaCapabilities = [ ];
+        cudaForwardCompat = false;
+        cudaSupport = true;
+      };
 
-      hardware.nvidia = {
+      hardware.nvidia = mkIf (!cfg.forceUnload) {
         modesetting.enable = true;
         open = true;
         nvidiaSettings = true;
@@ -37,9 +57,9 @@ in
       hardware.graphics.enable = true;
 
       services = lib.mkMerge [
-        {
+        (mkIf (!cfg.forceUnload) {
           xserver.videoDrivers = [ "nvidia" ];
-        }
+        })
 
         (mkIf cfg.forceUnload {
           udev.extraRules = ''
@@ -66,8 +86,10 @@ in
         ];
       };
 
-      environment.systemPackages = with pkgs; [
-        nvitop
-      ];
+      environment = mkIf (!cfg.forceUnload) {
+        systemPackages = with pkgs; [
+          nvitop
+        ];
+      };
     };
 }

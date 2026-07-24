@@ -84,8 +84,12 @@
         # cpu.intel.enable = true; # Enable kvm-intel
         gpu.amd.enable = true; # Enable amdgpu
         # gpu.intel.enable = true; # Enable i915
-        # gpu.nvidia.enable = true; # Enable nvidia
-        # gpu.nvidia.forceUnload = true; # Fully disable nvidia if you have hybrid graphics
+        # gpu.nvidia = {
+        #   enable = true; # Enable nvidia or just prepare for forceEnable
+        #   cudaCapabilities = [ "8.9" ]; # List of CUDA capabilities to enable. Must be set.
+        #
+        #   forceUnload = true; # May fully disable nvidia if you have hybrid graphics
+        # };
       };
     };
   };

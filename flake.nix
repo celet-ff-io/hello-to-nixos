@@ -92,8 +92,11 @@
                       gpu = {
                         amd.enable = true;
                         intel.enable = true;
-                        nvidia.enable = true;
-                        nvidia.forceUnload = true;
+                        nvidia = {
+                          enable = true;
+                          forceUnload = false;
+                          cudaCapabilities = [ "8.9" ];
+                        };
                       };
                     };
                   };
