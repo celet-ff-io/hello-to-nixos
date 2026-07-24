@@ -15,6 +15,8 @@ for versions under 3.0.0.
 
 ## [Unreleased]
 
+## 3.3.0 - 2026-07-25
+
 ### Added
 
 - `mihomo` service for TUN proxies.
