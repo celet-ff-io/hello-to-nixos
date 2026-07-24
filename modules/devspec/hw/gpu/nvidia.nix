@@ -6,6 +6,7 @@
 }:
 let
   inherit (lib)
+    mkDefault
     mkEnableOption
     mkIf
     types
@@ -42,9 +43,9 @@ in
         }
       ];
       nixpkgs.config = mkIf (!cfg.forceUnload) {
-        cudaCapabilities = [ ];
-        cudaForwardCompat = false;
-        cudaSupport = true;
+        inherit (cfg) cudaCapabilities;
+        cudaForwardCompat = mkDefault false;
+        cudaSupport = mkDefault true;
       };
 
       hardware.nvidia = mkIf (!cfg.forceUnload) {
