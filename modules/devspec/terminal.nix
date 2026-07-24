@@ -27,6 +27,7 @@ in
     startCommand = mkOption {
       type = types.str;
       default = if cfg.useKitty then "${pkgs.kitty}/bin/kitty" else "${pkgs.foot}/bin/foot";
+      defaultText = lib.literalExpression "\"\${pkgs.kitty}/bin/kitty\"";
       description = "Default terminal emulator to use when no desktop environment.";
     };
   };

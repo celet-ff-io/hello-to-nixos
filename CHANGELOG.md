@@ -31,6 +31,7 @@ for versions under 3.0.0.
 ### Fixed
 
 - Enable `nixpkgs.config.cudaSupport` if `htn3.device.hw.gpu.nvidia` is enabled.
+- Patch `htn3.device.terminal.startCommand`.
 
 ## 3.2.0 - 2026-07-16
 
