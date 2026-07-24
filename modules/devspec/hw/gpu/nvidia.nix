@@ -25,6 +25,8 @@ in
       cfg = config.htn3.device.hw.gpu.nvidia;
     in
     mkIf (with config.htn3; (enable && device.enable) && cfg.enable) {
+      nixpkgs.config.cudaSupport = true;
+
       hardware.nvidia = {
         modesetting.enable = true;
         open = true;

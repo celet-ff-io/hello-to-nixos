@@ -24,6 +24,10 @@ for versions under 3.0.0.
 - **Breaking:** You need to enable `htn3.optional.proxy.enableFlClash`
   to enable `FlClash` now.
 
+### Fixed
+
+- Enable `nixpkgs.config.cudaSupport` if `htn3.device.hw.gpu.nvidia` is enabled.
+
 ## 3.2.0 - 2026-07-16
 
 ### Added
