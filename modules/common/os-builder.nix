@@ -30,7 +30,7 @@ lib.mkIf config.htn3.enable {
   environment.systemPackages = with pkgs; [
     fuse
     fuse3
-    jmtpfs
+    go-mtpfs
     sops
     age
     ssh-to-age

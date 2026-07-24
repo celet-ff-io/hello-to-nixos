@@ -25,6 +25,8 @@ for versions under 3.0.0.
 
 - **Breaking:** You need to enable `htn3.optional.proxy.enableFlClash`
   to enable `FlClash` now.
+- Use `go-mtpfs` instead of `jmtpfs` for MTP devices.
+- Update flake inputs to latest versions.
 
 ### Fixed
 
