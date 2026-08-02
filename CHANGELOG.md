@@ -15,6 +15,12 @@ for versions under 3.0.0.
 
 ## [Unreleased]
 
+## 3.3.1 - 2026-07-25
+
+### Fixed
+
+- Update flake input nixos-unstable.
+
 ## 3.3.0 - 2026-07-25
 
 ### Added
