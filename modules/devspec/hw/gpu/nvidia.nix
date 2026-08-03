@@ -45,7 +45,9 @@ in
       nixpkgs.config = mkIf (!cfg.forceUnload) {
         inherit (cfg) cudaCapabilities;
         cudaForwardCompat = mkDefault false;
-        cudaSupport = mkDefault true;
+        # We disable cudaSupport by default to avoid unnecessary rebuilds of packages
+        # Use overrides to enable it for specific packages if needed
+        cudaSupport = mkDefault false;
       };
 
       hardware.nvidia = mkIf (!cfg.forceUnload) {

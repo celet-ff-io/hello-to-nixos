@@ -15,7 +15,13 @@ for versions under 3.0.0.
 
 ## [Unreleased]
 
-## 3.3.1 - 2026-07-25
+## 3.3.2 - 2026-08-03
+
+### Fixed
+
+- Disable global `nixpkgs.config.cudaSupport` by default to avoid too much rebuilding.
+
+## 3.3.1 - 2026-08-03
 
 ### Fixed
 
