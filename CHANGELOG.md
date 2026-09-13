@@ -15,6 +15,14 @@ for versions under 3.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Add `dig` and `tcpdump`.
+
+### Changed
+
+- Change rustup dist server to `https://rsproxy.cn`.
+
 ## 3.3.2 - 2026-08-03
 
 ### Fixed

@@ -42,6 +42,8 @@ mkIf cfg.enable {
       tree
       duf
       dust
+      dig
+      tcpdump
       htop
       bottom
       btop

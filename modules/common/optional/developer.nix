@@ -71,7 +71,7 @@ lib.mkIf (config.htn3.enable && cfg.enable) {
       UV_INDEX_URL = "https://pypi.tuna.tsinghua.edu.cn/simple";
 
       # no RUSTUP_UPDATE_ROOT
-      RUSTUP_DIST_SERVER = "https://mirrors.tuna.tsinghua.edu.cn/rustup";
+      RUSTUP_DIST_SERVER = "https://rsproxy.cn";
       RUST_SRC_PATH = "${pkgs.rustPlatform.rustLibSrc}";
       CARGO_TARGET_DIR = "$HOME/.cache/cargo";
       CARGO_INSTALL_ROOT = "$HOME/.local";
