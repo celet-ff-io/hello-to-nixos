@@ -47,7 +47,10 @@
       # localsend.enable = true;
       # proxy = {
       #   enable = true;
-      #   enableFlClash = true;
+      #   mihomo = {
+      #     enable = true;
+      #     configFile = "/path/to/mihomo/config.yaml";
+      #   };
       # };
       # sshd.enable = true;
     };

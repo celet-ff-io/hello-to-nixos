@@ -56,11 +56,6 @@ in
             wl-clipboard
           ];
         }
-        (mkIf (with htn3Cfg.optional.proxy; enable && enableFlClash) {
-          systemPackages = with pkgs; [
-            flclash
-          ];
-        })
       ];
     };
 }

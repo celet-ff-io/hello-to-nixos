@@ -31,7 +31,6 @@ in
             description = "Path to Mihomo configuration file.";
           };
         };
-        enableFlClash = mkEnableOption "Enable FlClash.";
       };
       sshd.enable = mkEnableOption "Enable sshd configuration.";
     };

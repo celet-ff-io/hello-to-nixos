@@ -23,6 +23,10 @@ for versions under 3.0.0.
 
 - Change rustup dist server to `https://rsproxy.cn`.
 
+### Removed
+
+- **Breaking**: Remove `htn3.optional.proxy.enableFlClash`.
+
 ## 3.3.2 - 2026-08-03
 
 ### Fixed
