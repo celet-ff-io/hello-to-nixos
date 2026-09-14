@@ -15,6 +15,8 @@ for versions under 3.0.0.
 
 ## [Unreleased]
 
+## 3.4.0 - 2026-09-14
+
 ### Added
 
 - Add `dig` and `tcpdump`.
@@ -357,7 +359,7 @@ since we do not need git ignoring for custom configuration anymore.
 - Move timezone setting from `./devspec/locale.nix` to `./common/basic-software.nix`
   to make it works in WSL.
 
-## [1.0.2] - 2026-03-09
+## 1.0.2 - 2026-03-09
 
 ### Added
 
@@ -367,13 +369,13 @@ since we do not need git ignoring for custom configuration anymore.
 
 - Perfect `README.md`.
 
-## [1.0.1] - 2026-03-09
+## 1.0.1 - 2026-03-09
 
 ### Fixed
 
 - Fix bug in `template-configuration.nix`.
 
-## [1.0.0] - 2026-03-09
+## 1.0.0 - 2026-03-09
 
 ### Added
 
