@@ -87,6 +87,8 @@ in
           set -g @continuum-save-interval '15'
 
           set -s set-clipboard on
+          set -g extended-keys on
+          set -g extended-keys-format csi-u
           set -g mouse on
         '';
     };
