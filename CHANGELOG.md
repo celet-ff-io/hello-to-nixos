@@ -15,6 +15,13 @@ for versions under 3.0.0.
 
 ## [Unreleased]
 
+## 3.4.1 - 2026-09-17
+
+### Fixed
+
+- Enable extended keys in tmux.
+- Use `libreoffice-qt` instead of `libreoffice-qt-fresh`.
+
 ## 3.4.0 - 2026-09-14
 
 ### Added
