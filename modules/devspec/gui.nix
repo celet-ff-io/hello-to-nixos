@@ -51,7 +51,7 @@ in
         })
         (mkIf optCfg.documents.enable {
           systemPackages = with pkgs; [
-            libreoffice-qt-fresh
+            libreoffice-qt
             gimp-with-plugins
           ];
         })
