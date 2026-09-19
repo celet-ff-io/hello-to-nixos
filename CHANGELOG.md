@@ -15,6 +15,12 @@ for versions under 3.0.0.
 
 ## [Unreleased]
 
+## 3.4.2 - 2026-09-19
+
+### Fixed
+
+- Patched `common/misc.nix`.
+
 ## 3.4.1 - 2026-09-17
 
 ### Fixed

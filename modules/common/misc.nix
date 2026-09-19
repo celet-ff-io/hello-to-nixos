@@ -12,14 +12,6 @@ let
   cfg = config.htn3;
 in
 mkIf cfg.enable {
-  programs = {
-    mtr.enable = true;
-
-    gnupg.agent = {
-      enable = true;
-      pinentryPackage = mkDefault pkgs.pinentry-curses;
-    };
-  };
 
   environment = {
     localBinInPath = true;
@@ -89,9 +81,14 @@ mkIf cfg.enable {
   };
 
   programs = {
-    gnupg.agent = {
-      enableSSHSupport = true;
-    };
+    git.enable = true;
+    mtr.enable = true;
     mosh.enable = true;
+
+    gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+      pinentryPackage = mkDefault pkgs.pinentry-curses;
+    };
   };
 }

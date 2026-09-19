@@ -82,8 +82,6 @@ lib.mkIf (config.htn3.enable && cfg.enable) {
 
   programs = {
     git = {
-      enable = true;
-
       config = {
         init = {
           defaultBranch = "main";
