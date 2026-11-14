@@ -6,9 +6,13 @@
 }:
 let
   cfg = config.htn3.optional.localsend;
+  # TODO: remove when nixpkgs.me carries upstream #585411 (localsend zlib fix)
+  localsend = pkgs.localsend.overrideAttrs (old: {
+    runtimeDependencies = [ pkgs.zlib ];
+  });
 in
 lib.mkIf (config.htn3.enable && cfg.enable) {
-  environment.systemPackages = with pkgs; [ localsend ];
+  environment.systemPackages = [ localsend ];
 
   networking.firewall = {
     allowedTCPPorts = [ 53317 ];
@@ -18,9 +22,10 @@ lib.mkIf (config.htn3.enable && cfg.enable) {
   services.avahi = {
     enable = true;
     nssmdns4 = true;
-    publish = {
-      enable = true;
-      userServices = true;
+    settings.publish = {
+      disable-publishing = false;
+      disable-user-service-publishing = false;
+      publish-addresses = true;
     };
   };
 }

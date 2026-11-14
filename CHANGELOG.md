@@ -15,6 +15,19 @@ for versions under 3.0.0.
 
 ## [Unreleased]
 
+## 3.5.0 - 2026-11-14
+
+### Changed
+
+- Update flake inputs.
+- Update kernel version.
+
+### Fixed
+
+- Fix losing build input in `pkgs.localsend`.
+- Patch `services.avahi` in `localsend.nix`.
+- **Breaking:** Remove redundant `boot.initrd.systemd.enable` in `luks.nix`.
+
 ## 3.4.3 - 2026-10-22
 
 ### Fixed

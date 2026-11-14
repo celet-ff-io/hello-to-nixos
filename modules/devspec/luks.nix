@@ -43,7 +43,6 @@ in
     in
     lib.mkIf (with config.htn3; (enable && device.enable) && cfg.enable) {
       boot.initrd = {
-        systemd.enable = true;
         availableKernelModules = [
           "tpm_crb"
           "tpm_tis" # Legacy support
