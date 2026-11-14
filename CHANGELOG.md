@@ -15,6 +15,8 @@ for versions under 3.0.0.
 
 ## [Unreleased]
 
+## 3.5.0 - 2026-11-14
+
 ### Changed
 
 - Update flake inputs.
