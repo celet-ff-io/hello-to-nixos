@@ -21,6 +21,7 @@ for versions under 3.0.0.
 
 ### Fixed
 
+- Fix losing build input in `pkgs.localsend`.
 - Patch `services.avahi` in `localsend.nix`.
 - **Breaking:** Remove redundant `boot.initrd.systemd.enable` in `luks.nix`.
 
