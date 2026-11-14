@@ -18,9 +18,10 @@ lib.mkIf (config.htn3.enable && cfg.enable) {
   services.avahi = {
     enable = true;
     nssmdns4 = true;
-    publish = {
-      enable = true;
-      userServices = true;
+    settings.publish = {
+      disable-publishing = false;
+      disable-user-service-publishing = false;
+      publish-addresses = true;
     };
   };
 }
