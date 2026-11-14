@@ -6,7 +6,7 @@
 }:
 lib.mkIf (with config.htn3; (enable && device.enable)) {
   boot = {
-    kernelPackages = lib.mkDefault pkgs.linuxPackages_6_18;
+    kernelPackages = lib.mkDefault pkgs.linuxPackages_7_3;
     kernelParams = [ "iommu=pt" ];
 
     # Use the systemd-boot EFI boot loader.

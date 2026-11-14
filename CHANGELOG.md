@@ -18,6 +18,7 @@ for versions under 3.0.0.
 ### Changed
 
 - Update flake inputs.
+- Update kernel version.
 
 ### Fixed
 
