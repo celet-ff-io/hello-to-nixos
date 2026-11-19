@@ -15,6 +15,12 @@ for versions under 3.0.0.
 
 ## [Unreleased]
 
+## 3.5.1 - 2026-11-19
+
+### Fixed
+
+- Remove redundant override.
+
 ## 3.5.0 - 2026-11-14
 
 ### Changed
